@@ -19,6 +19,7 @@ import com.quanturium.androcloud2.Constants;
 import com.quanturium.androcloud2.MyApplication;
 import com.quanturium.androcloud2.MyExceptionHandler;
 import com.quanturium.androcloud2.R;
+import com.quanturium.androcloud2.adapters.AddFileAdapter;
 import com.quanturium.androcloud2.adapters.MenuAdapter;
 import com.quanturium.androcloud2.fragments.AboutFragment;
 import com.quanturium.androcloud2.fragments.AddFileDropdownFragment;
@@ -81,6 +82,19 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 		setBehindContentView(R.layout.activity_main_behind);
 
 		this.initialize(savedInstanceState);
+	}
+	
+	@Override
+	protected void onNewIntent(Intent i)
+	{
+		if (i != null && i.getAction() != null && i.getAction().equals(Constants.INTENT_ACTION_DISPLAY_TRANSFERTS))
+		{
+			FragmentTransaction ft = getFragmentManager().beginTransaction();
+			TransfertFragment transfertFragment = new TransfertFragment();
+			ft.replace(R.id.fragment_content_frame, transfertFragment, "ContentFragment");
+			ft.addToBackStack(null);
+			ft.commit();
+		}
 	}
 
 	@Override
@@ -282,15 +296,12 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 			case MenuAdapter.ITEM_TRANSFERTS:
 
 				fragment = new TransfertFragment();
-				
+
 				break;
 
 			case MenuAdapter.ITEM_ADD_FILE:
 
 				onAddFileMenuClicked();
-				// Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-				// intent.setType("file/*");
-				// startActivityForResult(intent, Constants.ADD_FILE_RETURN_CODE);
 				return;
 		}
 
@@ -376,7 +387,60 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 	@Override
 	public void onAddFileItemSelected(int position)
 	{
-		Log.i(TAG, "cool");
+		Intent intent = new Intent();
+		intent.setAction(Intent.ACTION_GET_CONTENT);
+
+		switch (position)
+		{
+			case AddFileAdapter.ITEM_IMAGE:
+
+				 Intent intentImage = new Intent();
+				 intentImage.setAction(Intent.ACTION_GET_CONTENT);
+				 intentImage.setType("image/*");
+				 startActivityForResult(Intent.createChooser(intentImage, "Choose a picture"), Constants.ADD_FILE_RETURN_CODE);
+
+				break;
+
+			case AddFileAdapter.ITEM_BOOKMARK:
+
+				break;
+
+			case AddFileAdapter.ITEM_TEXT:
+
+				Intent intentText = new Intent();
+				intentText.setAction(Intent.ACTION_GET_CONTENT);
+				intentText.setType("text/plain");
+				startActivityForResult(Intent.createChooser(intentText, "Choose a text file"), Constants.ADD_FILE_RETURN_CODE);
+
+				break;
+
+			case AddFileAdapter.ITEM_AUDIO:
+				
+				Intent intentAudio = new Intent();
+				intentAudio.setAction(Intent.ACTION_GET_CONTENT);
+				intentAudio.setType("audio/*");
+				startActivityForResult(Intent.createChooser(intentAudio, "Choose an audio file"), Constants.ADD_FILE_RETURN_CODE);
+
+				break;
+
+			case AddFileAdapter.ITEM_VIDEO:
+				
+				Intent intentVideo = new Intent();
+				intentVideo.setAction(Intent.ACTION_GET_CONTENT);
+				intentVideo.setType("video/*");
+				startActivityForResult(Intent.createChooser(intentVideo, "Choose an audio file"), Constants.ADD_FILE_RETURN_CODE);
+
+				break;
+
+			case AddFileAdapter.ITEM_UNKNOWN:
+
+				Intent intentUnknown = new Intent();
+				intentUnknown.setAction(Intent.ACTION_GET_CONTENT);
+				intentUnknown.setType("file/*");
+				startActivityForResult(Intent.createChooser(intentUnknown, "Choose a file"), Constants.ADD_FILE_RETURN_CODE);
+
+				break;
+		}
 	}
 
 	@Override
