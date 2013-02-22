@@ -47,10 +47,10 @@ public class MenuFragment extends ListFragment
 		setListAdapter(adapter);
 		
 		FragmentManager fm = getFragmentManager();
-		Fragment fragment = fm.findFragmentByTag("AddFilesInlineFragment");
+		Fragment fragment = fm.findFragmentByTag("AddFileInlineFragment");
 		
-		if(fragment instanceof AddFilesInlineFragment)
-			this.mCallbacks.onAddFilesMenuClicked();		
+		if(fragment instanceof AddFileInlineFragment)
+			this.mCallbacks.onAddFileMenuClicked();		
 	}
 	
 	@Override

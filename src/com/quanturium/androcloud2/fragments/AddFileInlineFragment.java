@@ -15,13 +15,13 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import com.quanturium.androcloud2.R;
-import com.quanturium.androcloud2.adapters.AddFilesAdapter;
+import com.quanturium.androcloud2.adapters.AddFileAdapter;
 import com.quanturium.androcloud2.listeners.FragmentListener;
 
-public class AddFilesInlineFragment extends Fragment implements OnItemClickListener
+public class AddFileInlineFragment extends Fragment implements OnItemClickListener
 {
 	private GridView			gridView = null;
-	private AddFilesAdapter		adapter;
+	private AddFileAdapter		adapter;
 
 	private FragmentListener	mCallbacks	= null;
 	private final static String	TAG			= "AboutFragment";
@@ -40,7 +40,7 @@ public class AddFilesInlineFragment extends Fragment implements OnItemClickListe
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		return inflater.inflate(R.layout.fragment_addfiles_inline, container, false);
+		return inflater.inflate(R.layout.fragment_addfile_inline, container, false);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class AddFilesInlineFragment extends Fragment implements OnItemClickListe
 	{
 		super.onActivityCreated(savedInstanceState);
 
-		adapter = new AddFilesAdapter(getActivity(), AddFilesAdapter.STYLE_INLINE);
+		adapter = new AddFileAdapter(getActivity(), AddFileAdapter.STYLE_INLINE);
 		gridView = (GridView) getView().findViewById(R.id.addFilesGridview);
 		gridView.setOnItemClickListener(this);
 		gridView.setAdapter(adapter);
@@ -57,7 +57,7 @@ public class AddFilesInlineFragment extends Fragment implements OnItemClickListe
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
 	{
-		this.mCallbacks.onAddFilesItemSelected(arg2);
+		this.mCallbacks.onAddFileItemSelected(arg2);
 	}
 
 	@Override

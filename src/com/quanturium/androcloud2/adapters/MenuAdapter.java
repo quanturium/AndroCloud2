@@ -26,7 +26,7 @@ public class MenuAdapter extends BaseAdapter
 	public final static int	ITEM_USER			= 0;
 	public final static int	ITEM_SEPARATOR_1	= 1;
 	public final static int	ITEM_HOME			= 2;
-	public final static int	ITEM_ADD_FILES		= 3;
+	public final static int	ITEM_ADD_FILE		= 3;
 	public final static int	ITEM_ADD_FILES_BIS	= 4;
 	public final static int	ITEM_SHOW_ALL		= 5;
 	public final static int	ITEM_SHOW_TRASH		= 6;
@@ -81,7 +81,7 @@ public class MenuAdapter extends BaseAdapter
 			case ITEM_SHOW_TRASH:
 			case ITEM_ABOUT:
 			case ITEM_PREFERENCES:
-			case ITEM_ADD_FILES:
+			case ITEM_ADD_FILE:
 
 				return TYPE_NORMAL;
 
@@ -173,8 +173,7 @@ public class MenuAdapter extends BaseAdapter
 
 				case TYPE_ADDFILES :
 					
-					convertView = this.inflater.inflate(R.layout.row_menu_addfiles_bis, parent, false);
-//					viewHolder.addFilesBisFrameLayout = (FrameLayout) convertView.findViewById(R.id.addFilesMenuFraleLayout);
+					convertView = this.inflater.inflate(R.layout.row_menu_addfile_bis, parent, false);
 
 					break;
 			}
@@ -202,7 +201,7 @@ public class MenuAdapter extends BaseAdapter
 
 				break;
 
-			case ITEM_ADD_FILES:
+			case ITEM_ADD_FILE:
 
 				viewHolder.name.setText("Add files");
 				viewHolder.icon.setImageResource(R.drawable.ic_menu_addfile);

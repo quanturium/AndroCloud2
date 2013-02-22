@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.holders.AddFileItemViewHolder;
 
-public class AddFilesAdapter extends BaseAdapter
+public class AddFileAdapter extends BaseAdapter
 {
 	public final static int	STYLE_DROPDOWN	= 1;
 	public final static int	STYLE_INLINE	= 2;
@@ -21,7 +21,7 @@ public class AddFilesAdapter extends BaseAdapter
 	private LayoutInflater	inflater		= null;
 	private Context			context;
 
-	public AddFilesAdapter(Context context, int style)
+	public AddFileAdapter(Context context, int style)
 	{
 		this.inflater = LayoutInflater.from(context);
 		this.style = style;

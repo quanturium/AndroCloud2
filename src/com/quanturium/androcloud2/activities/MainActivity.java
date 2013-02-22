@@ -21,8 +21,8 @@ import com.quanturium.androcloud2.MyExceptionHandler;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.adapters.MenuAdapter;
 import com.quanturium.androcloud2.fragments.AboutFragment;
-import com.quanturium.androcloud2.fragments.AddFilesDropdownFragment;
-import com.quanturium.androcloud2.fragments.AddFilesInlineFragment;
+import com.quanturium.androcloud2.fragments.AddFileDropdownFragment;
+import com.quanturium.androcloud2.fragments.AddFileInlineFragment;
 import com.quanturium.androcloud2.fragments.FileDetailsFragment;
 import com.quanturium.androcloud2.fragments.FilesMainFragment;
 import com.quanturium.androcloud2.fragments.FilesTrashFragment;
@@ -285,9 +285,9 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 				
 				break;
 
-			case MenuAdapter.ITEM_ADD_FILES:
+			case MenuAdapter.ITEM_ADD_FILE:
 
-				onAddFilesMenuClicked();
+				onAddFileMenuClicked();
 				// Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 				// intent.setType("file/*");
 				// startActivityForResult(intent, Constants.ADD_FILE_RETURN_CODE);
@@ -323,39 +323,39 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 	}
 
 	@Override
-	public void onAddFilesMenuClicked()
+	public void onAddFileMenuClicked()
 	{
-		onAddFilesClicked(1);
+		onAddFileClicked(1);
 	}
 
 	@Override
-	public void onAddFilesActionClicked()
+	public void onAddFileActionClicked()
 	{
-		onAddFilesClicked(2);
+		onAddFileClicked(2);
 	}
 
-	private void onAddFilesClicked(int type)
+	private void onAddFileClicked(int type)
 	{
 		Fragment fragment = null;
 		FragmentManager fm = getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 
 		if (type == 1)
-			fragment = (AddFilesInlineFragment) fm.findFragmentByTag("AddFilesInlineFragment");
+			fragment = (AddFileInlineFragment) fm.findFragmentByTag("AddFileInlineFragment");
 		else
-			fragment = (AddFilesDropdownFragment) fm.findFragmentByTag("AddFilesDropdownFragment");
+			fragment = (AddFileDropdownFragment) fm.findFragmentByTag("AddFileDropdownFragment");
 
 		if (fragment == null)
 		{
 			if (type == 1)
 			{
-				fragment = new AddFilesInlineFragment();
-				ft.add(R.id.addFilesMenuFrameLayout, fragment, "AddFilesInlineFragment");
+				fragment = new AddFileInlineFragment();
+				ft.add(R.id.addFileMenuFrameLayout, fragment, "AddFileInlineFragment");
 			}
 			else
 			{
-				fragment = new AddFilesDropdownFragment();
-				ft.add(R.id.addFilesActionFramelayout, fragment, "AddFilesDropdownFragment");
+				fragment = new AddFileDropdownFragment();
+				ft.add(R.id.addFileActionFramelayout, fragment, "AddFileDropdownFragment");
 				ft.addToBackStack(null);
 			}
 
@@ -374,7 +374,7 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 	}
 
 	@Override
-	public void onAddFilesItemSelected(int position)
+	public void onAddFileItemSelected(int position)
 	{
 		Log.i(TAG, "cool");
 	}

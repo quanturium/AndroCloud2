@@ -13,5 +13,5 @@ public class MenuItemViewHolder
 	public TableLayout	transfertLayout;
 	public TextView		uploadsCount;
 	public TextView		downloadCount;
-	public FrameLayout	addFilesBisFrameLayout;
+	public FrameLayout	addFileBisFrameLayout;
 }

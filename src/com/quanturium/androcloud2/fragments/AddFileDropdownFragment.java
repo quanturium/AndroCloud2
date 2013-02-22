@@ -15,12 +15,12 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import com.quanturium.androcloud2.R;
-import com.quanturium.androcloud2.adapters.AddFilesAdapter;
+import com.quanturium.androcloud2.adapters.AddFileAdapter;
 import com.quanturium.androcloud2.listeners.FragmentListener;
 
-public class AddFilesDropdownFragment extends ListFragment implements OnItemClickListener
+public class AddFileDropdownFragment extends ListFragment implements OnItemClickListener
 {
-	private AddFilesAdapter		adapter;
+	private AddFileAdapter		adapter;
 
 	private FragmentListener	mCallbacks	= null;
 	private final static String	TAG			= "AboutFragment";
@@ -39,7 +39,7 @@ public class AddFilesDropdownFragment extends ListFragment implements OnItemClic
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		return inflater.inflate(R.layout.fragment_addfiles_dropdown, container, false);
+		return inflater.inflate(R.layout.fragment_addfile_dropdown, container, false);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class AddFilesDropdownFragment extends ListFragment implements OnItemClic
 	{
 		super.onActivityCreated(savedInstanceState);
 
-		adapter = new AddFilesAdapter(getActivity(), AddFilesAdapter.STYLE_DROPDOWN);
+		adapter = new AddFileAdapter(getActivity(), AddFileAdapter.STYLE_DROPDOWN);
 		getListView().setOnItemClickListener(this);
 		setListAdapter(adapter);
 	}
@@ -55,7 +55,7 @@ public class AddFilesDropdownFragment extends ListFragment implements OnItemClic
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
 	{
-		this.mCallbacks.onAddFilesItemSelected(arg2);
+		this.mCallbacks.onAddFileItemSelected(arg2);
 	}
 
 }

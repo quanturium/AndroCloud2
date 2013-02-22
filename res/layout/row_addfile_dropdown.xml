@@ -3,7 +3,7 @@
     style="@android:style/Widget.ActionButton"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/addfiles_action_item_background"
+    android:background="@drawable/addfile_action_item_background"
     android:orientation="vertical" >
 
     <ImageView

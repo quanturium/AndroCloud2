@@ -16,7 +16,7 @@
         android:scrollbarStyle="outsideOverlay" />
 
     <FrameLayout
-        android:id="@+id/addFilesActionFramelayout"
+        android:id="@+id/addFileActionFramelayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

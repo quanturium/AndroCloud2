@@ -60,8 +60,8 @@ public class HomeFragment extends ListFragment implements OnItemClickListener
 		FragmentManager fm = getFragmentManager();
 		Fragment fragment = fm.findFragmentByTag("AddFilesDropdownFragment");
 		
-		if(fragment instanceof AddFilesDropdownFragment)
-			this.mCallbacks.onAddFilesActionClicked();
+		if(fragment instanceof AddFileDropdownFragment)
+			this.mCallbacks.onAddFileActionClicked();
 	}
 
 	@Override
@@ -115,9 +115,9 @@ public class HomeFragment extends ListFragment implements OnItemClickListener
 	{
 		switch (item.getItemId())
 		{
-			case R.id.menuItemAddFiles:
+			case R.id.menuItemAddFile:
 
-				this.mCallbacks.onAddFilesActionClicked();
+				this.mCallbacks.onAddFileActionClicked();
 
 				break;
 		}
