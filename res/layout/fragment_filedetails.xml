@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.quanturium.androcloud2.AnimatedLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragment_background"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/imageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/imageLoader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/actionbar_background_color"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/filedetailsActionView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/filedetails_action_background"
+            android:padding="7dp"
+            android:src="@drawable/ic_action_view" />
+
+        <ImageView
+            android:id="@+id/filedetailsActionSave"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/filedetails_action_background"
+            android:padding="7dp"
+            android:src="@drawable/ic_action_save" />
+
+        <ImageView
+            android:id="@+id/filedetailsActionShare"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/filedetails_action_background"
+            android:padding="7dp"
+            android:src="@drawable/ic_action_link" />
+
+        <ImageView
+            android:id="@+id/filedetailsActionEdit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/filedetails_action_background"
+            android:padding="7dp"
+            android:src="@drawable/ic_action_edit" />
+
+        <ImageView
+            android:id="@+id/filedetailsActionDelete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/filedetails_action_background"
+            android:padding="7dp"
+            android:src="@drawable/ic_action_delete" />
+    </LinearLayout>
+
+</com.quanturium.androcloud2.AnimatedLinearLayout>

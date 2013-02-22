@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="default_background">#AAAAAA</color>
+    <color name="fragment_background">#DDDDDD</color>
+    <color name="transfert_swipe_background">#999999</color>
+    <color name="list_divider">#cbcbcb</color>
+    <color name="menu_background">#303030</color>    
+    <color name="menu_list_divider">#1e1e1e</color>
+    <color name="menu_icon_background">#636363</color>
+    <color name="home_item_text">#555555</color>
+    <color name="add_files_text">#555555</color>
+    <color name="blue_color">#04b0ee</color>
+    <color name="actionbar_background_color">#222222</color>
+    <color name="splash_brand_color">#1b71c6</color>
+    <color name="splash_description_color">#0f53a7</color>
+</resources>

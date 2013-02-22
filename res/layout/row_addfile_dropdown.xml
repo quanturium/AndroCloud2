@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@android:style/Widget.ActionButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/addfiles_action_item_background"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/addfileItemIcon2"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
+</LinearLayout>
