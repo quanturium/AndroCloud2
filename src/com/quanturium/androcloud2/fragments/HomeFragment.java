@@ -82,25 +82,25 @@ public class HomeFragment extends ListFragment implements OnItemClickListener
 
 		switch (position)
 		{
-			case 0:
+			case HomeAdapter.ITEM_ALL:
 
 				value = 0;
 
 				break;
 
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
+			case HomeAdapter.ITEM_IMAGES:
+			case HomeAdapter.ITEM_BOOKMARKS:
+			case HomeAdapter.ITEM_TEXT:
+			case HomeAdapter.ITEM_ARCHIVES:
+			case HomeAdapter.ITEM_AUDIO:
+			case HomeAdapter.ITEM_VIDEO:
+			case HomeAdapter.ITEM_OTHER:
 
 				value = position - 1;
 
 				break;
 
-			case 10:
+			case HomeAdapter.ITEM_TRASH:
 
 				this.mCallbacks.onMenuItemSelected(MenuAdapter.ITEM_SHOW_TRASH);
 				return;

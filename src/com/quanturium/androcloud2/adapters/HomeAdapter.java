@@ -14,7 +14,22 @@ import com.quanturium.androcloud2.holders.HomeItemViewHolder;
 
 public class HomeAdapter extends BaseAdapter
 {
-	private LayoutInflater	inflater	= null;
+	private LayoutInflater	inflater			= null;
+
+	public final static int	ITEM_ALL			= 0;
+	public final static int	ITEM_SEPARATOR_1	= 1;
+	public final static int	ITEM_IMAGES			= 2;
+	public final static int	ITEM_BOOKMARKS		= 3;
+	public final static int	ITEM_TEXT			= 4;
+	public final static int	ITEM_ARCHIVES		= 5;
+	public final static int	ITEM_AUDIO			= 6;
+	public final static int	ITEM_VIDEO			= 7;
+	public final static int	ITEM_OTHER			= 8;
+	public final static int	ITEM_SEPARATOR_2	= 9;
+	public final static int	ITEM_TRASH			= 10;
+
+	public final static int	TYPE_NORMAL			= 0;
+	public final static int	TYPE_SEPARATOR		= 1;
 
 	public HomeAdapter(Context context)
 	{
@@ -31,14 +46,12 @@ public class HomeAdapter extends BaseAdapter
 	@Override
 	public Object getItem(int position)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public long getItemId(int position)
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -51,22 +64,26 @@ public class HomeAdapter extends BaseAdapter
 	@Override
 	public int getItemViewType(int position)
 	{
-		if (position == 1 || position == 9)
-			return 1;
-		else
-			return 0;
+		switch(position)
+		{
+			case ITEM_SEPARATOR_1:
+			case ITEM_SEPARATOR_2:
+				return TYPE_SEPARATOR;
+			default : 
+				return TYPE_NORMAL;
+		}
 	}
-	
+
 	@Override
 	public boolean areAllItemsEnabled()
 	{
 		return false;
 	}
-	
+
 	@Override
 	public boolean isEnabled(int position)
 	{
-		if(getItemViewType(position) == 0)
+		if (getItemViewType(position) == TYPE_NORMAL)
 			return true;
 		else
 			return false;
@@ -75,7 +92,7 @@ public class HomeAdapter extends BaseAdapter
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		if (getItemViewType(position) == 0)
+		if (getItemViewType(position) == TYPE_NORMAL)
 		{
 			HomeItemViewHolder viewHolder;
 
@@ -96,67 +113,67 @@ public class HomeAdapter extends BaseAdapter
 			int icon = 0;
 			switch (position)
 			{
-				case 0:
+				case ITEM_ALL:
 
 					title = "All files";
 					icon = R.drawable.ic_filetype_all;
 
 					break;
-					
-				case 2 :  
-					
+
+				case ITEM_IMAGES:
+
 					title = "Images";
 					icon = R.drawable.ic_filetype_image;
-					
+
 					break;
-					
-				case 3 :  
-					
+
+				case ITEM_BOOKMARKS:
+
 					title = "Bookmarks";
 					icon = R.drawable.ic_filetype_bookmark;
-					
+
 					break;
-					
-				case 4 :  
-					
+
+				case ITEM_TEXT:
+
 					title = "Text";
 					icon = R.drawable.ic_filetype_text;
-					
+
 					break;
-					
-				case 5 :  
-					
+
+				case ITEM_ARCHIVES:
+
 					title = "Archives";
 					icon = R.drawable.ic_filetype_archive;
-					
+
 					break;
-					
-				case 6 :  
-					
+
+				case ITEM_AUDIO:
+
 					title = "Audio";
 					icon = R.drawable.ic_filetype_audio;
-					
+
 					break;
-					
-				case 7 :  
-					
+
+				case ITEM_VIDEO:
+
 					title = "Video";
 					icon = R.drawable.ic_filetype_video;
-					
+
 					break;
-					
-				case 8 :  
-					
+
+				case ITEM_OTHER:
+
 					title = "Other";
 					icon = R.drawable.ic_filetype_unknown;
-					
+
 					break;
-					
-				case 10 :  
-					
+
+				case ITEM_TRASH:
+
 					title = "Trash";
 					icon = R.drawable.ic_filetype_trash;
-					
+
 					break;
 			}
 
@@ -166,11 +183,11 @@ public class HomeAdapter extends BaseAdapter
 		else
 		{
 			if (convertView == null)
-			{				
+			{
 				convertView = this.inflater.inflate(R.layout.row_home_separator, parent, false);
 			}
 		}
-		
+
 		return convertView;
 	}
 
