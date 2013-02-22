@@ -100,7 +100,7 @@ public class UserFragment extends ListFragment implements OnItemClickListener
 	{
 		switch(position)
 		{
-			case 0 : 
+			case UserAdapter.ITEM_LOG_OUT : 
 				
 				Prefs.getPreferences(getActivity()).edit().remove(Prefs.USER_INFOS).commit();
 				Prefs.getPreferences(getActivity()).edit().remove(Prefs.EMAIL).commit();
