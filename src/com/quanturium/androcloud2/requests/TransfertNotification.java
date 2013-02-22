@@ -67,13 +67,6 @@ public class TransfertNotification
 		mBuilder.setAutoCancel(false);
 		mBuilder.setOnlyAlertOnce(true);
 
-		// Intent intent = new Intent(context, TransfertEventsReceiver.class);
-		// intent.setAction(Constants.INTENT_ACTION_NOTIFICATION_CANCELED);
-		// intent.putExtra("id", id);
-		// PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, 0);
-
-		// mBuilder.setDeleteIntent(pendingIntent);
-
 		Intent intent = new Intent(context, MainActivity.class);
 		intent.setAction(Constants.INTENT_ACTION_DISPLAY_TRANSFERTS);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

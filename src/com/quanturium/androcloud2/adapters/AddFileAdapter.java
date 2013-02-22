@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -15,11 +14,20 @@ import com.quanturium.androcloud2.holders.AddFileItemViewHolder;
 
 public class AddFileAdapter extends BaseAdapter
 {
+	public final static int ITEM_IMAGE = 0;
+	public final static int ITEM_BOOKMARK = 1;
+	public final static int ITEM_TEXT = 2;
+	public final static int ITEM_AUDIO = 3;
+	public final static int ITEM_VIDEO = 4;
+	public final static int ITEM_UNKNOWN = 5;
+	
 	public final static int	STYLE_DROPDOWN	= 1;
 	public final static int	STYLE_INLINE	= 2;
+	
 	private int				style			= 1;
+	
 	private LayoutInflater	inflater		= null;
-	private Context			context;
+	private Context			context			= null;
 
 	public AddFileAdapter(Context context, int style)
 	{
@@ -59,25 +67,25 @@ public class AddFileAdapter extends BaseAdapter
 			{
 				v = inflater.inflate(R.layout.row_addfile_dropdown, parent, false);
 				viewHolder.icon = (ImageView) v.findViewById(R.id.addfileItemIcon2);
-				
-				 v.setX(200);
-				 ObjectAnimator animator = ObjectAnimator.ofFloat(v, "x", 0);
-				 animator.setDuration(300);
-				 animator.setStartDelay(80*position);
-				 animator.start();		
+
+				v.setX(200);
+				ObjectAnimator animator = ObjectAnimator.ofFloat(v, "x", 0);
+				animator.setDuration(300);
+				animator.setStartDelay(80 * position);
+				animator.start();
 			}
 			else if (style == STYLE_INLINE)
 			{
-				 v = inflater.inflate(R.layout.row_addfile_inline, parent, false);
-				 viewHolder.icon = (ImageView) v.findViewById(R.id.addfileItemIcon);
-				 
-				 ScaleAnimation animation = new ScaleAnimation(0,1,0,1);
-				 animation.setDuration(200);
-				 animation.setStartOffset(80*position);
-				 v.setAnimation(animation);
+				v = inflater.inflate(R.layout.row_addfile_inline, parent, false);
+				viewHolder.icon = (ImageView) v.findViewById(R.id.addfileItemIcon);
+
+				ScaleAnimation animation = new ScaleAnimation(0, 1, 0, 1);
+				animation.setDuration(200);
+				animation.setStartOffset(80 * position);
+				v.setAnimation(animation);
 			}
 
-			v.setTag(viewHolder);				
+			v.setTag(viewHolder);
 		}
 		else
 		{
@@ -89,42 +97,42 @@ public class AddFileAdapter extends BaseAdapter
 
 		switch (position)
 		{
-			case 0:
+			case ITEM_IMAGE:
 
 				icon = R.drawable.ic_filetype_image_gray;
 				title = "Images";
 
 				break;
 
-			case 1:
+			case ITEM_BOOKMARK:
 
 				icon = R.drawable.ic_filetype_bookmark_gray;
 				title = "Bookmarks";
 
 				break;
 
-			case 2:
+			case ITEM_TEXT:
 
 				icon = R.drawable.ic_filetype_text_gray;
 				title = "Text";
 
 				break;
 
-			case 3:
+			case ITEM_AUDIO:
 
 				icon = R.drawable.ic_filetype_audio_gray;
 				title = "Audio";
 
 				break;
 
-			case 4:
+			case ITEM_VIDEO:
 
 				icon = R.drawable.ic_filetype_video_gray;
 				title = "Video";
 
 				break;
 
-			case 5:
+			case ITEM_UNKNOWN:
 
 				icon = R.drawable.ic_filetype_unknown_gray;
 				title = "Other file";
@@ -132,7 +140,7 @@ public class AddFileAdapter extends BaseAdapter
 				break;
 		}
 
-		 viewHolder.icon.setImageResource(icon);
+		viewHolder.icon.setImageResource(icon);
 
 		return v;
 	}
