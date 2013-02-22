@@ -22,7 +22,7 @@ public class TransfertFragment extends ListFragment
 {
 	private FragmentListener	mCallbacks			= null;
 	private final static String	TAG					= "TransfertFragment";
-	private final static int	REFRESH_INTERVAL	= 1;
+	private final static int	REFRESH_INTERVAL	= 5;
 	private volatile boolean	isActive			= false;
 
 	private TransfertsAdapter	adapter;
