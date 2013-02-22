@@ -46,7 +46,7 @@ import com.quanturium.androcloud2.tools.Prefs;
 
 public abstract class FilesAbstractFragment extends ListFragment implements FilesTaskListener, OnItemClickListener, MultiChoiceModeListener, OnQueryTextListener, OnNavigationListener, LoaderCallbacks<Cursor>
 {
-	private FragmentListener	mCallbacks						= null;
+	protected FragmentListener	mCallbacks						= null;
 	private final static String	TAG								= "FilesFragment";
 	private FilesAdapter2		adapter							= null;
 	private SpinnerAdapter		dropdownAdapter;
@@ -331,9 +331,11 @@ public abstract class FilesAbstractFragment extends ListFragment implements File
 			int id = cursor.getInt(cursor.getColumnIndex(FilesDatabase.COL_ID));
 
 			if (id >= 0) // ok
-				mCallbacks.onFilesItemSelected(id);
+				onItemClick(id);
 		}
 	}
+	
+	public abstract void onItemClick(int itemId);
 
 	@Override
 	public void onTaskFinished(FilesTaskAnswer answer)
@@ -366,43 +368,10 @@ public abstract class FilesAbstractFragment extends ListFragment implements File
 	}
 
 	@Override
-	public boolean onActionItemClicked(ActionMode mode, MenuItem item)
-	{
-		long[] checkedItems;
-
-		switch (item.getItemId())
-		{
-			case R.id.multiItemSave:
-
-				checkedItems = getListView().getCheckedItemIds();
-				Toast.makeText(getActivity(), "To be implemented", Toast.LENGTH_SHORT).show();
-
-				break;
-
-			case R.id.multiItemDelete:
-
-				checkedItems = getListView().getCheckedItemIds();
-				Toast.makeText(getActivity(), "To be implemented", Toast.LENGTH_SHORT).show();
-				// getListView().setItemChecked(0, false);
-
-				break;
-		}
-
-		mode.finish();
-
-		return true;
-	}
+	public abstract boolean onActionItemClicked(ActionMode mode, MenuItem item);	
 
 	@Override
-	public boolean onCreateActionMode(ActionMode mode, Menu menu)
-	{
-		MenuInflater inflater = getActivity().getMenuInflater();
-		inflater.inflate(R.menu.fragment_files_action_select, menu);
-
-		mode.setTitle("Select Items");
-
-		return true;
-	}
+	public abstract boolean onCreateActionMode(ActionMode mode, Menu menu);
 
 	@Override
 	public void onDestroyActionMode(ActionMode mode)
