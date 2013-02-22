@@ -38,6 +38,7 @@ public class AboutFragment extends Fragment
 	{
 		super.onActivityCreated(savedInstanceState);		
 		((MainActivity)getActivity()).setActionBarNavigationModeList(false);
+		getActivity().getActionBar().setTitle("About");
 	}
 	
 	@Override

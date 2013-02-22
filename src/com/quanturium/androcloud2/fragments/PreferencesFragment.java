@@ -41,6 +41,7 @@ public class PreferencesFragment extends PreferenceFragment implements OnSharedP
 	{
 		super.onActivityCreated(savedInstanceState);
 		((MainActivity) getActivity()).setActionBarNavigationModeList(false);
+		getActivity().getActionBar().setTitle("Preferences");
 
 		addPreferencesFromResource(R.xml.preferences);
 

@@ -49,6 +49,7 @@ public class TransfertFragment extends ListFragment
 	{
 		super.onActivityCreated(savedInstanceState);
 		((MainActivity) getActivity()).setActionBarNavigationModeList(false);
+		getActivity().getActionBar().setTitle("Transferts");
 
 		adapter = new TransfertsAdapter(getActivity());
 		configureListview(getListView());

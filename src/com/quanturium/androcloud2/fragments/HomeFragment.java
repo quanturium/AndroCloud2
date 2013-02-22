@@ -50,6 +50,7 @@ public class HomeFragment extends ListFragment implements OnItemClickListener
 	{
 		super.onActivityCreated(savedInstanceState);
 		((MainActivity) getActivity()).setActionBarNavigationModeList(false);
+		getActivity().getActionBar().setTitle("Home");
 
 		adapter = new HomeAdapter(getActivity());
 		configureListview(getListView());

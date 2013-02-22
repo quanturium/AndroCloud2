@@ -53,6 +53,7 @@ public class UserFragment extends ListFragment implements OnItemClickListener
 	{
 		super.onActivityCreated(savedInstanceState);
 		((MainActivity) getActivity()).setActionBarNavigationModeList(false);		
+		getActivity().getActionBar().setTitle("Account");
 		
 		adapter = new UserAdapter(getActivity(), getUserData());
 		configureListview(getListView());
