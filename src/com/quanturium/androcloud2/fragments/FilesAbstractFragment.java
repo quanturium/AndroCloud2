@@ -44,22 +44,25 @@ import com.quanturium.androcloud2.requests.FilesTaskAnswer;
 import com.quanturium.androcloud2.requests.FilesTaskQuery;
 import com.quanturium.androcloud2.tools.Prefs;
 
-public class FilesFragment extends ListFragment implements FilesTaskListener, OnItemClickListener, MultiChoiceModeListener, OnQueryTextListener, OnNavigationListener, LoaderCallbacks<Cursor>
+public abstract class FilesAbstractFragment extends ListFragment implements FilesTaskListener, OnItemClickListener, MultiChoiceModeListener, OnQueryTextListener, OnNavigationListener, LoaderCallbacks<Cursor>
 {
 	private FragmentListener	mCallbacks						= null;
 	private final static String	TAG								= "FilesFragment";
 	private FilesAdapter2		adapter							= null;
 	private SpinnerAdapter		dropdownAdapter;
-	private FilesDatabase		database;
+	protected FilesDatabase		database;
 
-	private MenuItem			menuItemProgress;
-	private MenuItem			menuItemRefresh;
+	protected MenuItem			menuItemProgress;
+	protected MenuItem			menuItemRefresh;
 	private boolean				currentlyLoading				= false;
 
-	private String				filterText						= null;
-	private CloudAppItem.Type	filterType						= null;
+	protected String			filterText						= "";
+	protected CloudAppItem.Type	filterType						= null;
 	private boolean				isFirstOnNavigationItemSelected	= true;
 
+	protected abstract boolean willDisplayTrash();	
+	protected abstract String getTitle();
+	
 	@Override
 	public void onAttach(Activity activity)
 	{
@@ -82,6 +85,7 @@ public class FilesFragment extends ListFragment implements FilesTaskListener, On
 	{
 		super.onActivityCreated(savedInstanceState);
 		((MainActivity) getActivity()).setActionBarNavigationModeList(true);
+		getActivity().getActionBar().setTitle(getTitle());
 
 		int position = 0;
 
@@ -98,7 +102,7 @@ public class FilesFragment extends ListFragment implements FilesTaskListener, On
 		configureDropDown(position);
 
 		database = FilesDatabase.getInstance(getActivity());
-//		adapter = new FilesAdapter2(getActivity(), null, 0);
+		// adapter = new FilesAdapter2(getActivity(), null, 0);
 		configureListview(getListView());
 		setListAdapter(adapter);
 
@@ -233,7 +237,7 @@ public class FilesFragment extends ListFragment implements FilesTaskListener, On
 
 		MenuItem menuItemSearch = menu.findItem(R.id.menu_search);
 		SearchView searchView = (SearchView) menuItemSearch.getActionView();
-		searchView.setIconifiedByDefault(false);
+		searchView.setIconifiedByDefault(true);
 		searchView.setOnQueryTextListener(this);
 		searchView.setSubmitButtonEnabled(false);
 		searchView.setQueryHint("Filter files");
@@ -252,9 +256,8 @@ public class FilesFragment extends ListFragment implements FilesTaskListener, On
 			@Override
 			public boolean onMenuItemActionCollapse(MenuItem item)
 			{
-				// ((FilesAdapter2) getListAdapter()).changeCursor(database.getQuery(((FilesAdapter2) getListAdapter()).getTypeFilter(), null));
-				FilesFragment.this.filterText = null;
-				getLoaderManager().restartLoader(0, null, FilesFragment.this);
+				SearchView searchView = (SearchView) item.getActionView();
+				searchView.setQuery("", false);
 				return true;
 			}
 		});
@@ -304,7 +307,7 @@ public class FilesFragment extends ListFragment implements FilesTaskListener, On
 			}
 
 			FilesTask filesTask = new FilesTask(this);
-			FilesTaskQuery query = new FilesTaskQuery(Prefs.getPreferences(getActivity()).getString(Prefs.EMAIL, ""), Prefs.getPreferences(getActivity()).getString(Prefs.PASSWORD, ""), database, page, Integer.valueOf(Prefs.getPreferences(getActivity()).getString(Prefs.FILES_PER_REQUEST, "20")));
+			FilesTaskQuery query = new FilesTaskQuery(Prefs.getPreferences(getActivity()).getString(Prefs.EMAIL, ""), Prefs.getPreferences(getActivity()).getString(Prefs.PASSWORD, ""), database, page, Integer.valueOf(Prefs.getPreferences(getActivity()).getString(Prefs.FILES_PER_REQUEST, "20")), willDisplayTrash());
 			filesTask.execute(query);
 			((MyApplication) getActivity().getApplication()).setFilesTask(filesTask);
 		}
@@ -427,8 +430,11 @@ public class FilesFragment extends ListFragment implements FilesTaskListener, On
 	@Override
 	public boolean onQueryTextChange(String newText)
 	{
-		this.filterText = newText;
-		getLoaderManager().restartLoader(0, null, this);
+		if (!filterText.equals(newText))
+		{
+			this.filterText = newText;
+			getLoaderManager().restartLoader(0, null, this);
+		}
 
 		return true;
 	}
@@ -486,7 +492,7 @@ public class FilesFragment extends ListFragment implements FilesTaskListener, On
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args)
 	{
-		String query = FilesDatabase.getQuery(filterType, filterText);
+		String query = FilesDatabase.getQuery(filterType, filterText, willDisplayTrash());
 		return new SQLiteCursorLoader(getActivity(), database, query, null);
 	}
 

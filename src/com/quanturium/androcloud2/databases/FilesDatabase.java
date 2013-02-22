@@ -21,7 +21,7 @@ public class FilesDatabase extends SQLiteOpenHelper
 
 	private final static String		DATABASE_NAME_PREFIX	= "Files_";
 	private final static String		DATABASE_NAME_SUFFIX	= ".db";
-	private static final int		DATABASE_VERSION		= 7;
+	private static final int		DATABASE_VERSION		= 8;
 
 	public final static String		COL_ID					= "_id";
 	public final static String		COL_DATE				= "orderDate";
@@ -29,9 +29,10 @@ public class FilesDatabase extends SQLiteOpenHelper
 	public final static String		COL_TYPE				= "type";
 	public final static String		COL_DATA				= "json";
 	public final static String		COL_NAME				= "name";
+	public final static String		COL_IS_TRASHED			= "is_trashed";
 
 	private static final String		TABLE_NAME				= "Files";
-	private static final String		TABLE_CREATE			= "CREATE TABLE " + TABLE_NAME + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME + ", " + COL_URL + ", " + COL_DATE + " INTEGER, " + COL_TYPE + " INTEGER," + COL_DATA + ")";
+	private static final String		TABLE_CREATE			= "CREATE TABLE " + TABLE_NAME + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME + ", " + COL_URL + ", " + COL_DATE + " INTEGER, " + COL_TYPE + " INTEGER," + COL_DATA + ", " + COL_IS_TRASHED + " INTEGER)";
 
 	public static FilesDatabase getInstance(Context ctx)
 	{
@@ -40,16 +41,16 @@ public class FilesDatabase extends SQLiteOpenHelper
 
 		return mInstance;
 	}
-	
+
 	public static void clean()
 	{
-		if(mInstance != null)
+		if (mInstance != null)
 			mInstance.close();
 		mInstance = null;
 	}
-	
+
 	private FilesDatabase(Context context)
-	{		
+	{
 		super(context, DATABASE_NAME_PREFIX + Prefs.getPreferences(context).getInt(Prefs.HASH, 0) + DATABASE_NAME_SUFFIX, null, DATABASE_VERSION);
 	}
 
@@ -98,6 +99,7 @@ public class FilesDatabase extends SQLiteOpenHelper
 			values.put(COL_DATE, (int) (item.getUpdatedAt().getTime() / 1000));
 			values.put(COL_TYPE, item.getItemType().ordinal());
 			values.put(COL_DATA, item.getJson().toString());
+			values.put(COL_IS_TRASHED, item.isTrashed());
 
 			SQLiteDatabase db = this.getWritableDatabase();
 			long id = db.insert(TABLE_NAME, null, values);
@@ -122,6 +124,7 @@ public class FilesDatabase extends SQLiteOpenHelper
 			values.put(COL_DATE, (int) (item.getUpdatedAt().getTime() / 1000));
 			values.put(COL_TYPE, item.getItemType().ordinal());
 			values.put(COL_DATA, item.getJson().toString());
+			values.put(COL_IS_TRASHED, item.isTrashed());
 
 			SQLiteDatabase db = this.getWritableDatabase();
 			db.update(TABLE_NAME, values, COL_ID + "=?", new String[] { String.valueOf(id) });
@@ -159,30 +162,31 @@ public class FilesDatabase extends SQLiteOpenHelper
 		return DatabaseUtils.queryNumEntries(this.getReadableDatabase(), TABLE_NAME);
 	}
 
-	public static String getQuery(CloudAppItem.Type type, String string)
+	public static String getQuery(CloudAppItem.Type type, String string, boolean trashed)
 	{
 		String where;
+		String trashedString = trashed ? "1" : "0";
 
 		if (type == null)
 		{
 			if (string == null || string.length() == 0)
 			{
-				where = null;
+				where = COL_IS_TRASHED + " = " + trashedString;
 			}
 			else
 			{
-				where = COL_NAME + " LIKE " + "'%" + string + "%'";
+				where = COL_IS_TRASHED + " = " + trashedString + " AND " + COL_NAME + " LIKE " + "'%" + string + "%'";
 			}
 		}
 		else
 		{
 			if (string == null || string.length() == 0)
 			{
-				where = COL_TYPE + " = " + String.valueOf(type.ordinal());
+				where = COL_IS_TRASHED + " = " + trashedString + " AND " + COL_TYPE + " = " + String.valueOf(type.ordinal());
 			}
 			else
 			{
-				where = COL_TYPE + " = " + String.valueOf(type.ordinal()) + " AND " + COL_NAME + " LIKE " + "'%" + string + "%'";
+				where = COL_IS_TRASHED + " = " + trashedString + " AND " + COL_TYPE + " = " + String.valueOf(type.ordinal()) + " AND " + COL_NAME + " LIKE " + "'%" + string + "%'";
 			}
 		}
 

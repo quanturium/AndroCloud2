@@ -24,7 +24,8 @@ import com.quanturium.androcloud2.fragments.AboutFragment;
 import com.quanturium.androcloud2.fragments.AddFilesDropdownFragment;
 import com.quanturium.androcloud2.fragments.AddFilesInlineFragment;
 import com.quanturium.androcloud2.fragments.FileDetailsFragment;
-import com.quanturium.androcloud2.fragments.FilesFragment;
+import com.quanturium.androcloud2.fragments.FilesMainFragment;
+import com.quanturium.androcloud2.fragments.FilesTrashFragment;
 import com.quanturium.androcloud2.fragments.HomeFragment;
 import com.quanturium.androcloud2.fragments.MenuFragment;
 import com.quanturium.androcloud2.fragments.PreferencesFragment;
@@ -185,7 +186,6 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 		{
 			intent.putExtra("animated", true);
 		}
-			
 
 		startActivity(intent);
 		finish();
@@ -269,15 +269,20 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 
 			case MenuAdapter.ITEM_SHOW_ALL:
 
-				fragment = new FilesFragment();
+				fragment = new FilesMainFragment();
+
+				break;
+
+			case MenuAdapter.ITEM_SHOW_TRASH:
+
+				fragment = new FilesTrashFragment();
 
 				break;
 
 			case MenuAdapter.ITEM_TRANSFERTS:
 
-				// Toast.makeText(getApplicationContext(), "To be implemented", Toast.LENGTH_SHORT).show();
-				// return;
 				fragment = new TransfertFragment();
+				
 				break;
 
 			case MenuAdapter.ITEM_ADD_FILES:
@@ -309,12 +314,24 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 	@Override
 	public void onHomeItemSelected(int position)
 	{
-		Fragment fragment = new FilesFragment();
+		Fragment fragment = new FilesMainFragment();
 		Bundle bundle = new Bundle();
 		bundle.putInt(Constants.DROPDOWN_INDEX_KEY, position);
 		fragment.setArguments(bundle);
 
 		replaceContentFragment(fragment, false);
+	}
+
+	@Override
+	public void onAddFilesMenuClicked()
+	{
+		onAddFilesClicked(1);
+	}
+
+	@Override
+	public void onAddFilesActionClicked()
+	{
+		onAddFilesClicked(2);
 	}
 
 	private void onAddFilesClicked(int type)
@@ -330,7 +347,7 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 
 		if (fragment == null)
 		{
-			if(type == 1)
+			if (type == 1)
 			{
 				fragment = new AddFilesInlineFragment();
 				ft.add(R.id.addFilesMenuFrameLayout, fragment, "AddFilesInlineFragment");
@@ -341,8 +358,7 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 				ft.add(R.id.addFilesActionFramelayout, fragment, "AddFilesDropdownFragment");
 				ft.addToBackStack(null);
 			}
-						
-			
+
 			ft.commit();
 		}
 		else
@@ -353,19 +369,8 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 				ft.commit();
 			}
 			else
-			fm.popBackStack();
+				fm.popBackStack();
 		}
-	}
-
-	public void onAddFilesMenuClicked()
-	{
-		onAddFilesClicked(1);
-	}
-
-	@Override
-	public void onAddFilesActionClicked()
-	{
-		onAddFilesClicked(2);
 	}
 
 	@Override

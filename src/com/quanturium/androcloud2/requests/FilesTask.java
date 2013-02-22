@@ -34,7 +34,7 @@ public class FilesTask extends AsyncTask<FilesTaskQuery, Integer, FilesTaskAnswe
 		
 		try
 		{		
-			items = api.getItems(query.page, query.nbFiles, null, false, null);
+			items = api.getItems(query.page, query.nbFiles, null, query.trashed, null);
 			query.database.addFiles(items.toArray(new CloudAppItem[items.size()]));
 			answer = new FilesTaskAnswer(FilesTaskAnswer.RESULT_OK, null, query.page);
 
