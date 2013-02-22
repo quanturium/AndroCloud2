@@ -203,7 +203,7 @@ public class MainService extends Service implements TransfertTaskListener
 	}
 
 	@Override
-	public void onTaskFinish(int id, Object result)
+	public void onTaskFinish(int id, String result)
 	{
 		Log.i(TAG, "Task's callback : #" + id + " finished");
 

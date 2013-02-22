@@ -72,6 +72,10 @@
         <receiver
             android:name=".requests.TransfertEventsReceiver"
             android:exported="false" >
+            <intent-filter>
+                <action android:name="com.quanturium.androcloud2.intent.action_notification_upload_action" />
+                <action android:name="com.quanturium.androcloud2.intent.action_notification_download_action" />
+            </intent-filter>
         </receiver>
     </application>
 

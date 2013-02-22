@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.quanturium.androcloud2.listeners.TransfertTaskListener;
 
-public abstract class TransfertTask extends AsyncTask<SimpleTaskQuery, Integer, Object>
+public abstract class TransfertTask extends AsyncTask<SimpleTaskQuery, Integer, String>
 {
 	protected int					id	= -1;
 	protected TransfertTaskListener	mCallback;
@@ -40,7 +40,7 @@ public abstract class TransfertTask extends AsyncTask<SimpleTaskQuery, Integer, 
 	}
 
 	@Override
-	protected abstract Object doInBackground(SimpleTaskQuery... params);
+	protected abstract String doInBackground(SimpleTaskQuery... params);
 
 	@Override
 	protected void onProgressUpdate(Integer... values)
@@ -51,7 +51,7 @@ public abstract class TransfertTask extends AsyncTask<SimpleTaskQuery, Integer, 
 	}
 
 	@Override
-	protected void onPostExecute(Object result)
+	protected void onPostExecute(String result)
 	{
 		Log.i("Task #" + this.id, "onPostExecute");
 		this.mCallback.onTaskFinish(id, result);

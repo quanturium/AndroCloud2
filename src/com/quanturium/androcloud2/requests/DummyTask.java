@@ -13,7 +13,7 @@ public class DummyTask extends TransfertTask
 	}
 
 	@Override
-	protected Object doInBackground(SimpleTaskQuery... params)
+	protected String doInBackground(SimpleTaskQuery... params)
 	{
 		try
 		{
@@ -28,7 +28,7 @@ public class DummyTask extends TransfertTask
 	}
 	
 	@Override
-	protected void onPostExecute(Object result)
+	protected void onPostExecute(String result)
 	{
 		Log.i("DummyTask","Ended");
 		super.onPostExecute(result);

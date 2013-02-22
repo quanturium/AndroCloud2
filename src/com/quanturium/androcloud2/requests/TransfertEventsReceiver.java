@@ -1,13 +1,22 @@
 package com.quanturium.androcloud2.requests;
 
+import java.io.File;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.text.ClipboardManager;
-import android.util.Log;
+import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
+import com.cloudapp.api.CloudAppException;
+import com.cloudapp.api.model.CloudAppItem;
+import com.cloudapp.impl.model.CloudAppItemImpl;
 import com.quanturium.androcloud2.Constants;
 
 public class TransfertEventsReceiver extends BroadcastReceiver
@@ -16,94 +25,84 @@ public class TransfertEventsReceiver extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		String action = intent.getAction();
-		
-		if (action.equals(Constants.INTENT_ACTION_NOTIFICATION_CANCELED))
+
+		String data = intent.getStringExtra(Constants.NOTIFICATION_INTENT_DATA_KEY);
+		int onClickAction = intent.getIntExtra(Constants.NOTIFICATION_INTENT_ACTION_KEY, -1);
+
+		if (action.equals(Constants.INTENT_ACTION_NOTIFICATION_DOWNLOAD_ACTION))
 		{
-			Log.i("Task #" + intent.getIntExtra("id", -1), "received cancel broadcast action");
-			TransfertStorage storage = TransfertStorage.getInstance();
-			int id = intent.getIntExtra("id", -1);
-
-			TransfertTask task = storage.getTask(id);
-
-			if (task != null)
-				storage.getTask(id).cancel(true);
-		}
-		else if (action.equals(Constants.INTENT_ACTION_NOTIFICATION_CLICKED))
-		{
-			int type = intent.getIntExtra("type", 0); // -1 : upload ; 1 : download
-			int actionValue = intent.getIntExtra("action", -1);
-			String actionValue1 = intent.getStringExtra("action_value1");
-			String actionValue2 = intent.getStringExtra("action_value2");
-
-			Log.i("Task #" + intent.getIntExtra("id", -1), "received click broadcast action : " + type);
-
-			switch (type)
+			switch (onClickAction)
 			{
-				case -1:
+				case 0: // open file
 
-					switch (actionValue)
-					{
-						case 0:
+					File file = new File(data);
+					String uri = Uri.fromFile(file).toString();
+					String extension = MimeTypeMap.getFileExtensionFromUrl(uri);
+					MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+					String mimeType = mimeTypeMap.getMimeTypeFromExtension(extension);
 
-							ClipboardManager cm1 = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-							cm1.setText(actionValue1);
+					Intent i0 = new Intent();
+					i0.setAction(android.content.Intent.ACTION_VIEW);
+					i0.setDataAndType(Uri.parse(uri), mimeType);
+					i0.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-							Toast.makeText(context, "Link copied to clipboard", Toast.LENGTH_SHORT).show();
-
-							break;
-
-						case 1:
-
-							ClipboardManager cm2 = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-							cm2.setText(actionValue1);
-
-							Toast.makeText(context, "Link copied to clipboard", Toast.LENGTH_SHORT).show();
-
-							break;
-
-						case 2:
-
-							Intent i2 = new Intent("android.intent.action.VIEW", Uri.parse(actionValue1));
-							i2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-							context.startActivity(i2);
-
-							break;
-
-						case 3:
-
-							Intent i3 = new Intent("android.intent.action.VIEW", Uri.parse(actionValue1));
-							i3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-							context.startActivity(i3);
-
-							break;
-					}
+					context.startActivity(i0);
 
 					break;
+			}
+		}
+		else if (action.equals(Constants.INTENT_ACTION_NOTIFICATION_UPLOAD_ACTION))
+		{
+			CloudAppItem item;
+			try
+			{
+				item = new CloudAppItemImpl(new JSONObject(data));
+				ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+				
+				switch (onClickAction)
+				{
+					case 0: // copy link to clipboard
 
-				case 1:
+						
+						ClipData clipUrl = ClipData.newPlainText("url",item.getUrl());
+						clipboard.setPrimaryClip(clipUrl);
+						
+						Toast.makeText(context, "Link copied to clipboard", Toast.LENGTH_SHORT).show();
 
-					switch (actionValue)
-					{
-						case 0:
+						break;
 
-							Intent i0 = new Intent();
-							i0.setAction(android.content.Intent.ACTION_VIEW);
-							i0.setDataAndType(Uri.parse(actionValue1), actionValue2);
-							i0.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					case 1: // copy direct link to clipboard
 
-							context.startActivity(i0);
+						ClipData clipRemoteUrl = ClipData.newPlainText("url",item.getRemoteUrl());
+						clipboard.setPrimaryClip(clipRemoteUrl);
+						
+						Toast.makeText(context, "Direct link copied to clipboard", Toast.LENGTH_SHORT).show();
 
-							break;
-					}
+						break;
 
-					break;
+					case 2: // open link in web browser
 
-				case 0:
-				default:
+						Intent i2 = new Intent("android.intent.action.VIEW", Uri.parse(item.getUrl()));
+						i2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						context.startActivity(i2);
 
-					Toast.makeText(context, "error type action", Toast.LENGTH_SHORT).show();
+						break;
 
-					break;
+					case 3: // open direct link in web browser
+
+						Intent i3 = new Intent("android.intent.action.VIEW", Uri.parse(item.getRemoteUrl()));
+						i3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						context.startActivity(i3);
+
+						break;
+				}
+
+			} catch (JSONException e1)
+			{
+				e1.printStackTrace();
+			} catch (CloudAppException e)
+			{
+				e.printStackTrace();
 			}
 		}
 	}

@@ -19,7 +19,7 @@ public class UploadTransfertTask extends TransfertTask implements CloudAppProgre
 	}
 
 	@Override
-	protected Object doInBackground(SimpleTaskQuery... params)
+	protected String doInBackground(SimpleTaskQuery... params)
 	{
 		UploadTransfertTaskQuery query = (UploadTransfertTaskQuery) params[0];
 		name = query.file.getName();
@@ -31,7 +31,7 @@ public class UploadTransfertTask extends TransfertTask implements CloudAppProgre
 			CloudAppItem item = api.upload(query.file, this);
 			Log.i("Task #" + this.id, "url : " + item.getUrl());
 
-			return item;
+			return item.getJson().toString();
 		} catch (CloudAppException e)
 		{
 			cancel(true);

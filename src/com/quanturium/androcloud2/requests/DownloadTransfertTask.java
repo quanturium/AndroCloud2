@@ -19,7 +19,7 @@ public class DownloadTransfertTask extends TransfertTask
 	}
 
 	@Override
-	protected Object doInBackground(SimpleTaskQuery... params)
+	protected String doInBackground(SimpleTaskQuery... params)
 	{
 		DownloadTransfertTaskQuery query = (DownloadTransfertTaskQuery) params[0];
 		name = query.file.getName();
@@ -70,6 +70,9 @@ public class DownloadTransfertTask extends TransfertTask
 			
 			if(hasCancelled)
 				query.file.delete();
+			{
+				return query.file.getPath();
+			}
 		}
 		catch (MalformedURLException e)
 		{
