@@ -1,7 +1,6 @@
 package com.quanturium.androcloud2.fragments;
 
 import android.app.ActionBar.OnNavigationListener;
-import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Loader;
 import android.database.Cursor;
@@ -10,13 +9,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MenuItem.OnActionExpandListener;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -34,11 +31,9 @@ import com.quanturium.androcloud2.Constants;
 import com.quanturium.androcloud2.FragmentInitParams;
 import com.quanturium.androcloud2.MyApplication;
 import com.quanturium.androcloud2.R;
-import com.quanturium.androcloud2.activities.MainActivity;
 import com.quanturium.androcloud2.adapters.FilesAdapter2;
 import com.quanturium.androcloud2.databases.FilesDatabase;
 import com.quanturium.androcloud2.listeners.FilesTaskListener;
-import com.quanturium.androcloud2.listeners.FragmentListener;
 import com.quanturium.androcloud2.requests.FilesTask;
 import com.quanturium.androcloud2.requests.FilesTaskAnswer;
 import com.quanturium.androcloud2.requests.FilesTaskQuery;
@@ -56,7 +51,6 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 
 	protected String			filterText						= "";
 	protected CloudAppItem.Type	filterType						= null;
-	private boolean				isFirstOnNavigationItemSelected	= true;
 
 	private int					stateDropdownPosition			= -1;
 
@@ -191,7 +185,6 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 		}
 
 		this.filterType = filterType;
-		isFirstOnNavigationItemSelected = true;
 		getActivity().getActionBar().setSelectedNavigationItem(position);
 	}
 

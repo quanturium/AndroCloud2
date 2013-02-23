@@ -33,14 +33,14 @@ public class FilesMainFragment extends FilesAbstractFragment
 			case R.id.multiItemSave:
 
 				checkedItems = getListView().getCheckedItemIds();
-				Toast.makeText(getActivity(), "To be implemented", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), R.string.to_be_implemented, Toast.LENGTH_SHORT).show();
 
 				break;
 
 			case R.id.multiItemDelete:
 
 				checkedItems = getListView().getCheckedItemIds();
-				Toast.makeText(getActivity(), "To be implemented", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), R.string.to_be_implemented, Toast.LENGTH_SHORT).show();
 				// getListView().setItemChecked(0, false);
 
 				break;

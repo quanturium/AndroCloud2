@@ -441,7 +441,7 @@ public class FileDetailsFragment extends AbstractFragment implements OnClickList
 					item.setDeleted(true);
 					database.updateFile(itemId, item);
 					
-					Toast.makeText(activity, "File deleted", Toast.LENGTH_SHORT).show();
+					Toast.makeText(activity, "File moved to trash", Toast.LENGTH_SHORT).show();
 					activity.getFragmentManager().popBackStack();
 				}
 
