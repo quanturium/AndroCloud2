@@ -170,7 +170,7 @@ public class CloudAppImpl implements CloudApp {
    * {@inheritDoc}
    * 
    * @see com.cloudapp.api.CloudAppItems#getItems(int, int,
-   *      com.cloudapp.api.CloudAppItems.Type, boolean, java.lang.String)
+   *      com.cloudapp.api.Action.Type, boolean, java.lang.String)
    */
   public List<CloudAppItem> getItems(int page, int perPage, CloudAppItem.Type type,
       boolean showDeleted, String source) throws CloudAppException {

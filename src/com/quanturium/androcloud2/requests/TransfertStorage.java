@@ -11,7 +11,7 @@ import android.util.Log;
 public class TransfertStorage
 {
 	private static TransfertStorage		instance;
-	private List<TransfertTask>			tasks			= new ArrayList<TransfertTask>();
+	private List<AbstractTransfertTask>			tasks			= new ArrayList<AbstractTransfertTask>();
 	private List<TransfertNotification>	notifications	= new ArrayList<TransfertNotification>();
 
 	private TransfertStorage()
@@ -28,7 +28,7 @@ public class TransfertStorage
 		return instance;
 	}
 
-	public TransfertTask getTask(int i)
+	public AbstractTransfertTask getTask(int i)
 	{
 		return tasks.get(i);
 	}
@@ -39,7 +39,7 @@ public class TransfertStorage
 
 		for (int i = 0; i < tasks.size(); i++)
 		{
-			TransfertTask t = tasks.get(i);
+			AbstractTransfertTask t = tasks.get(i);
 
 			if (t != null && !t.isCancelled())
 			{
@@ -67,7 +67,7 @@ public class TransfertStorage
 
 		for (i = 0; i < tasks.size(); i++)
 		{
-			TransfertTask task = tasks.get(i);
+			AbstractTransfertTask task = tasks.get(i);
 
 			if (task instanceof UploadTransfertTask && !task.isCancelled())
 				n[0]++;
@@ -88,7 +88,7 @@ public class TransfertStorage
 			return null;
 	}
 
-	public int addTask(TransfertTask task)
+	public int addTask(AbstractTransfertTask task)
 	{
 		this.tasks.add(task);
 		int id = this.tasks.indexOf(task);
@@ -138,7 +138,7 @@ public class TransfertStorage
 	{
 		for(int i = 0 ; i < tasks.size() ; i++)
 		{
-			TransfertTask task = tasks.get(i);
+			AbstractTransfertTask task = tasks.get(i);
 			
 			if(task != null)
 				task.cancel(true);

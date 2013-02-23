@@ -1,15 +1,33 @@
 package com.quanturium.androcloud2;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Intent;
 
 import com.quanturium.androcloud2.requests.FilesTask;
+import com.quanturium.androcloud2.requests.ImageCacheTask;
 import com.quanturium.androcloud2.services.MainService;
 
 public class MyApplication extends Application
 {
-	private FilesTask	filesTask;
+	private FilesTask						filesTask;
+	private Map<Integer, ImageCacheTask>	imageCacheTaskArray	= new HashMap<Integer, ImageCacheTask>();
+
+	public ImageCacheTask getImageCacheTask(int id)
+	{
+		return imageCacheTaskArray.get(id);
+	}
+
+	public void setImageCacheTask(int id, ImageCacheTask imageCacheTask)
+	{
+		if (imageCacheTask == null)
+			imageCacheTaskArray.remove(id);
+		else
+			imageCacheTaskArray.put(id, imageCacheTask);
+	}
 
 	public FilesTask getFilesTask()
 	{

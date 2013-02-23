@@ -12,23 +12,35 @@
         android:layout_weight="1" >
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/contentImageView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
             android:visibility="gone" />
 
         <ProgressBar
-            android:id="@+id/imageLoader"
+            android:id="@+id/contentLoader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/contentTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:text="TextView" />
+
     </RelativeLayout>
 
     <LinearLayout

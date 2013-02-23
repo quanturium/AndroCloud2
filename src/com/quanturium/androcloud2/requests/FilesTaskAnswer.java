@@ -1,7 +1,7 @@
 package com.quanturium.androcloud2.requests;
 
 
-public class FilesTaskAnswer extends SimpleTaskAnswer
+public class FilesTaskAnswer extends AbstractTaskAnswer
 {
 	public final int				page;
 

@@ -32,4 +32,11 @@ public class Constants
 	public final static String	DROPDOWN_INDEX_KEY							= "dropdown_index";
 	public final static String	NOTIFICATION_INTENT_ACTION_KEY				= "on_click_action";
 	public final static String	NOTIFICATION_INTENT_DATA_KEY				= "data";
+	public final static String	DOWNLOAD_URL_KEY							= "download_url";
+	public final static String	DOWNLOAD_PATH_KEY							= "download_path";
+	public final static String	DOWNLOAD_NAME_KEY							= "download_name";
+
+	public final static String	FILE_ALERT_SAVE_KEY							= "file_alert_save";
+	public final static String	FILE_ALERT_RENAME_KEY						= "file_alert_rename";
+	public final static String	FILE_ALERT_DELETE_KEY						= "file_alert_delete";
 }

@@ -1,9 +1,7 @@
 package com.quanturium.androcloud2.activities;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,12 +15,8 @@ import android.widget.Toast;
 import com.cloudapp.api.CloudApp;
 import com.cloudapp.api.CloudAppException;
 import com.cloudapp.api.model.CloudAppAccount;
-import com.cloudapp.api.model.CloudAppAccountStats;
 import com.cloudapp.impl.CloudAppImpl;
-import com.cloudapp.impl.model.CloudAppAccountImpl;
-import com.cloudapp.impl.model.CloudAppAccountStatsImpl;
 import com.quanturium.androcloud2.R;
-import com.quanturium.androcloud2.adapters.MenuAdapter;
 import com.quanturium.androcloud2.tools.Prefs;
 
 public class LoginActivity extends Activity implements OnClickListener

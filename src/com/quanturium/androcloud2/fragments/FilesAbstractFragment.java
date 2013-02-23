@@ -58,6 +58,8 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 	protected CloudAppItem.Type	filterType						= null;
 	private boolean				isFirstOnNavigationItemSelected	= true;
 
+	private int					stateDropdownPosition			= -1;
+
 	protected abstract boolean willDisplayTrash();
 
 	public abstract void onItemClick(int itemId);
@@ -67,7 +69,7 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 
 	@Override
 	public abstract boolean onCreateActionMode(ActionMode mode, Menu menu);
-	
+
 	@Override
 	protected abstract FragmentInitParams init();
 
@@ -87,11 +89,15 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 			if (getArguments().containsKey(Constants.DROPDOWN_INDEX_KEY))
 				position = getArguments().getInt(Constants.DROPDOWN_INDEX_KEY);
 		}
+		if (stateDropdownPosition != -1)
+		{
+			position = stateDropdownPosition;
+		}
 
 		configureDropDown(position);
 
 		database = FilesDatabase.getInstance(getActivity());
-		// adapter = new FilesAdapter2(getActivity(), null, 0);
+		adapter = null;
 		configureListview(getListView());
 		setListAdapter(adapter);
 
@@ -145,7 +151,7 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
-		outState.putInt(Constants.DROPDOWN_INDEX_KEY, getActivity().getActionBar().getSelectedNavigationIndex());
+		outState.putInt(Constants.DROPDOWN_INDEX_KEY, stateDropdownPosition);
 		super.onSaveInstanceState(outState);
 	}
 
@@ -398,12 +404,7 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId)
 	{
-		if (isFirstOnNavigationItemSelected)
-		{
-			isFirstOnNavigationItemSelected = false;
-			return true;
-		}
-
+		stateDropdownPosition = itemPosition;
 		CloudAppItem.Type filterType = null;
 
 		switch (itemPosition)
@@ -451,7 +452,7 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 	{
 		if (adapter == null)
 		{
-			adapter = new FilesAdapter2(getActivity(), arg1, 0);
+			adapter = new FilesAdapter2(getActivity(), null, 0);
 			setListAdapter(adapter);
 		}
 		else

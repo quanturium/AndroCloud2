@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +98,8 @@ public class FilesAdapter2 extends CursorAdapter
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
+		Log.i(TAG, "get view with position " + position);
+		
 		if (getItemViewType(position) == TYPE_LOAD_MORE)
 		{
 			View v;
@@ -133,7 +136,7 @@ public class FilesAdapter2 extends CursorAdapter
 
 	@Override
 	public void bindView(View v, Context context, Cursor cursor)
-	{
+	{				
 		FileItemViewHolder itemViewHolder = (FileItemViewHolder) v.getTag();
 
 		if (cursor == null) // type LOAD_MORE

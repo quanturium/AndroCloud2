@@ -2,7 +2,7 @@ package com.quanturium.androcloud2.requests;
 
 import com.quanturium.androcloud2.databases.FilesDatabase;
 
-public class FilesTaskQuery extends SimpleTaskQuery
+public class FilesTaskQuery extends AbstractTaskQuery
 {
 	public final int			page;
 	public final int			nbFiles;

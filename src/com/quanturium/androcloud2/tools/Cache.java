@@ -1,13 +1,9 @@
 package com.quanturium.androcloud2.tools;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import android.content.Context;
@@ -79,79 +75,6 @@ public class Cache
 				}
 
 				return bitmap;
-			}
-			else
-			{
-				return null;
-			}
-		}
-		else
-		{
-			return null;
-		}
-	}
-
-	public static void setCachedString(Context context, String fileName, String content)
-	{
-		if (isStorageWritable())
-		{
-			File file = new File(context.getExternalCacheDir(), fileName);
-
-			try
-			{
-
-				file.createNewFile();
-				BufferedWriter output = new BufferedWriter(new FileWriter(file));
-
-				output.write(content);
-				output.newLine();
-
-				output.close();
-
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public static String getCachedString(Context context, String fileName, int cacheDurability)
-	{
-		if (isStorageAvailable())
-		{
-			StringBuilder contents = new StringBuilder();
-			File file = new File(context.getExternalCacheDir(), fileName);
-
-			if (file.exists())
-			{
-				if ((long) (file.lastModified() + (long) (cacheDurability * 3600 * 1000)) < System.currentTimeMillis())
-					return null;
-
-				try
-				{
-
-					BufferedReader input = new BufferedReader(new FileReader(file));
-					String line = null;
-
-					while ((line = input.readLine()) != null)
-					{
-						contents.append(line);
-						contents.append(System.getProperty("line.separator"));
-					}
-
-					input.close();
-
-				} catch (FileNotFoundException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				return contents.toString();
 			}
 			else
 			{

@@ -122,4 +122,6 @@ public interface CloudAppItem {
   Date getDeletedAt() throws CloudAppException;
   
   JSONObject getJson();
+  void setName(String name) throws CloudAppException;
+  void setDeleted(boolean deleted) throws CloudAppException;
 }

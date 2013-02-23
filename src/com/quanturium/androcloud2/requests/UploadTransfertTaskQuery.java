@@ -2,7 +2,7 @@ package com.quanturium.androcloud2.requests;
 
 import java.io.File;
 
-public class UploadTransfertTaskQuery extends SimpleTaskQuery
+public class UploadTransfertTaskQuery extends AbstractTaskQuery
 {
 	public final File file;
 	

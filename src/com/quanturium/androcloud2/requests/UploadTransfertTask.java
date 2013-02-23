@@ -9,7 +9,7 @@ import com.cloudapp.api.model.CloudAppProgressListener;
 import com.cloudapp.impl.CloudAppImpl;
 import com.quanturium.androcloud2.listeners.TransfertTaskListener;
 
-public class UploadTransfertTask extends TransfertTask implements CloudAppProgressListener
+public class UploadTransfertTask extends AbstractTransfertTask implements CloudAppProgressListener
 {
 	private long	timestamp;
 
@@ -19,7 +19,7 @@ public class UploadTransfertTask extends TransfertTask implements CloudAppProgre
 	}
 
 	@Override
-	protected String doInBackground(SimpleTaskQuery... params)
+	protected String doInBackground(AbstractTaskQuery... params)
 	{
 		UploadTransfertTaskQuery query = (UploadTransfertTaskQuery) params[0];
 		name = query.file.getName();

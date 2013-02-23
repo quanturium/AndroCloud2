@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.quanturium.androcloud2.listeners.TransfertTaskListener;
 
-public class DummyTask extends TransfertTask
+public class DummyTask extends AbstractTransfertTask
 {
 
 	public DummyTask(TransfertTaskListener callback)
@@ -13,7 +13,7 @@ public class DummyTask extends TransfertTask
 	}
 
 	@Override
-	protected String doInBackground(SimpleTaskQuery... params)
+	protected String doInBackground(AbstractTaskQuery... params)
 	{
 		try
 		{

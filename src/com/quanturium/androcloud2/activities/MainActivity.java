@@ -40,32 +40,33 @@ import com.slidingmenu.lib.app.SlidingActivity;
 
 public class MainActivity extends SlidingActivity implements FragmentListener, OnBackStackChangedListener
 {
-	// public int LAST_ITEM_CLICKED = -1;
-	Handler						mHandler			= new Handler();
+	Handler						mHandler				= new Handler();
 
-	public final static int		DELAY_MENU_HIDE		= 300;
+	public final static int		DELAY_MENU_HIDE			= 300;
 
-	private Runnable			mHideMenuRunnable	= new Runnable()
-													{
-														@Override
-														public void run()
+	private Runnable			mHideMenuRunnable		= new Runnable()
 														{
-															getSlidingMenu().toggle();
-														}
-													};
+															@Override
+															public void run()
+															{
+																getSlidingMenu().toggle();
+															}
+														};
 
-	private BroadcastReceiver	mBroadcastReceiver	= new BroadcastReceiver()
-													{
-
-														@Override
-														public void onReceive(Context context, Intent intent)
+	private BroadcastReceiver	mBroadcastReceiver		= new BroadcastReceiver()
 														{
-															MainActivity.this.onReceiveMessageFromService(intent);
-														}
 
-													};
+															@Override
+															public void onReceive(Context context, Intent intent)
+															{
+																MainActivity.this.onReceiveMessageFromService(intent);
+															}
 
-	private final static String	TAG					= "MainActivity";
+														};
+
+	private final static String	TAG						= "MainActivity";
+
+	public boolean				changesOccuredOnFiles	= false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -135,7 +136,7 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 
 		ft.commit();
 	}
-	
+
 	@Override
 	protected void onNewIntent(Intent i)
 	{
@@ -206,16 +207,6 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 		finish();
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent intent)
-	{
-		if (requestCode == Constants.ADD_FILE_RETURN_CODE && resultCode == RESULT_OK)
-		{
-			intent.setAction(Constants.INTENT_ACTION_UPLOAD);
-			((MyApplication) getApplication()).sendToMainService(intent);
-		}
-	}
-
 	public void setActionBarNavigationModeList(boolean value)
 	{
 		if (value)
@@ -249,11 +240,6 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 	@Override
 	public void onMenuItemSelected(int position)
 	{
-		// if (position == LAST_ITEM_CLICKED) // we don't want a click on the same item to be possible
-		// return;
-
-		// LAST_ITEM_CLICKED = position;
-
 		Fragment fragment = null;
 
 		switch (position)
@@ -395,10 +381,10 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 		{
 			case AddFileAdapter.ITEM_IMAGE:
 
-				 Intent intentImage = new Intent();
-				 intentImage.setAction(Intent.ACTION_GET_CONTENT);
-				 intentImage.setType("image/*");
-				 startActivityForResult(Intent.createChooser(intentImage, "Choose a picture"), Constants.ADD_FILE_RETURN_CODE);
+				Intent intentImage = new Intent();
+				intentImage.setAction(Intent.ACTION_GET_CONTENT);
+				intentImage.setType("image/*");
+				startActivityForResult(Intent.createChooser(intentImage, "Choose a picture"), Constants.ADD_FILE_RETURN_CODE);
 
 				break;
 
@@ -406,7 +392,7 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 
 				// TODO : popup to add a bookmark
 				Toast.makeText(this, R.string.to_be_implemented, Toast.LENGTH_SHORT).show();
-				
+
 				break;
 
 			case AddFileAdapter.ITEM_TEXT:
@@ -419,7 +405,7 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 				break;
 
 			case AddFileAdapter.ITEM_AUDIO:
-				
+
 				Intent intentAudio = new Intent();
 				intentAudio.setAction(Intent.ACTION_GET_CONTENT);
 				intentAudio.setType("audio/*");
@@ -428,7 +414,7 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 				break;
 
 			case AddFileAdapter.ITEM_VIDEO:
-				
+
 				Intent intentVideo = new Intent();
 				intentVideo.setAction(Intent.ACTION_GET_CONTENT);
 				intentVideo.setType("video/*");
@@ -444,6 +430,16 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 				startActivityForResult(Intent.createChooser(intentUnknown, "Choose a file"), Constants.ADD_FILE_RETURN_CODE);
 
 				break;
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent)
+	{
+		if (requestCode == Constants.ADD_FILE_RETURN_CODE && resultCode == RESULT_OK)
+		{
+			intent.setAction(Constants.INTENT_ACTION_UPLOAD);
+			((MyApplication) getApplication()).sendToMainService(intent);
 		}
 	}
 

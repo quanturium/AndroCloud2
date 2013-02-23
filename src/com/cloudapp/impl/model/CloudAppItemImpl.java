@@ -143,4 +143,19 @@ public class CloudAppItemImpl extends CloudAppModel implements CloudAppItem
 	{
 		return this.json;
 	}
+
+	@Override
+	public void setName(String newName) throws CloudAppException
+	{
+		putString("name", newName);
+	}
+
+	@Override
+	public void setDeleted(boolean deleted) throws CloudAppException
+	{
+		if(deleted)
+			putString("deleted_at", format.format((new Date())));
+		else
+			putString("deleted_at", null);
+	}
 }

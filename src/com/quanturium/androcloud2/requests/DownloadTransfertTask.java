@@ -9,7 +9,7 @@ import java.net.URL;
 
 import com.quanturium.androcloud2.listeners.TransfertTaskListener;
 
-public class DownloadTransfertTask extends TransfertTask
+public class DownloadTransfertTask extends AbstractTransfertTask
 {
 	private long	timestamp;
 
@@ -19,7 +19,7 @@ public class DownloadTransfertTask extends TransfertTask
 	}
 
 	@Override
-	protected String doInBackground(SimpleTaskQuery... params)
+	protected String doInBackground(AbstractTaskQuery... params)
 	{
 		DownloadTransfertTaskQuery query = (DownloadTransfertTaskQuery) params[0];
 		name = query.file.getName();

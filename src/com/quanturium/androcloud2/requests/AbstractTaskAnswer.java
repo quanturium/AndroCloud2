@@ -1,6 +1,6 @@
 package com.quanturium.androcloud2.requests;
 
-public class SimpleTaskAnswer
+public class AbstractTaskAnswer
 {
 	public final static int	RESULT_OK		= 1;
 	public final static int	RESULT_ERROR	= 0;
@@ -8,7 +8,7 @@ public class SimpleTaskAnswer
 	public final int		resultCode;
 	public final Exception	e;
 
-	public SimpleTaskAnswer(int resultCode, Exception e)
+	public AbstractTaskAnswer(int resultCode, Exception e)
 	{
 		this.resultCode = resultCode;
 		this.e = e;

@@ -15,10 +15,12 @@ import android.widget.Toast;
 import com.quanturium.androcloud2.Constants;
 import com.quanturium.androcloud2.MyExceptionHandler;
 import com.quanturium.androcloud2.listeners.TransfertTaskListener;
-import com.quanturium.androcloud2.requests.SimpleTaskQuery;
+import com.quanturium.androcloud2.requests.DownloadTransfertTask;
+import com.quanturium.androcloud2.requests.DownloadTransfertTaskQuery;
+import com.quanturium.androcloud2.requests.AbstractTaskQuery;
 import com.quanturium.androcloud2.requests.TransfertNotification;
 import com.quanturium.androcloud2.requests.TransfertStorage;
-import com.quanturium.androcloud2.requests.TransfertTask;
+import com.quanturium.androcloud2.requests.AbstractTransfertTask;
 import com.quanturium.androcloud2.requests.UploadTransfertTask;
 import com.quanturium.androcloud2.requests.UploadTransfertTaskQuery;
 import com.quanturium.androcloud2.tools.Prefs;
@@ -55,9 +57,14 @@ public class MainService extends Service implements TransfertTaskListener
 
 				if (action.equals(Constants.INTENT_ACTION_DOWNLOAD))
 				{
-					// TODO handle intent here
+					String url = intent.getStringExtra(Constants.DOWNLOAD_URL_KEY);
+					String path = intent.getStringExtra(Constants.DOWNLOAD_PATH_KEY);
+					String name = intent.getStringExtra(Constants.DOWNLOAD_NAME_KEY);
 
-					actionStartDownload();
+					if (url != null && path != null && name != null)
+					{
+						actionStartDownload(url, path, name);
+					}
 				}
 				else if (action.equals(Constants.INTENT_ACTION_UPLOAD))
 				{
@@ -134,29 +141,33 @@ public class MainService extends Service implements TransfertTaskListener
 		super.onDestroy();
 	}
 
-	private void actionStartDownload() // TODO : ajouter les parametres
+	private void actionStartDownload(String url, String path, String name)
 	{
-		// TransfertTask task = new TransfertTask(this);
-		// int id = storage.addTask(task);
-		// task.setId(id);
-		//
-		// TransfertNotification notification = new TransfertNotification(getApplicationContext(), id, TransfertNotification.TYPE_DOWNLOAD, "File truc.jpg");
-		// storage.addNotification(id, notification);
-		//
-		// task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "test");
+		AbstractTransfertTask task = new DownloadTransfertTask(this);
+		int id = storage.addTask(task);
+		task.setId(id);
+
+		File file = new File(path, name);
+		boolean isDisplayed = Prefs.getPreferences(getApplicationContext()).getBoolean(Prefs.DOWNLOAD_NOTIFICATION_SHOW, true);
+		TransfertNotification notification = new TransfertNotification(getApplicationContext(), id, TransfertNotification.TYPE_DOWNLOAD, "Url " + file.getName(), isDisplayed);
+		storage.addNotification(id, notification);
+				
+		AbstractTaskQuery query = new DownloadTransfertTaskQuery(Prefs.getPreferences(getApplicationContext()).getString(Prefs.EMAIL, ""), Prefs.getPreferences(getApplicationContext()).getString(Prefs.PASSWORD, ""), file, url);
+		
+		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, query);
 	}
 
 	private void actionStartUpload(File file)
 	{
-		TransfertTask task = new UploadTransfertTask(this);
+		AbstractTransfertTask task = new UploadTransfertTask(this);
 		int id = storage.addTask(task);
 		task.setId(id);
 
 		boolean isDisplayed = Prefs.getPreferences(getApplicationContext()).getBoolean(Prefs.UPLOAD_NOTIFICATION_SHOW, true);
-		TransfertNotification notification = new TransfertNotification(getApplicationContext(), id, TransfertNotification.TYPE_UPLOAD, "File truc.jpg", isDisplayed);
+		TransfertNotification notification = new TransfertNotification(getApplicationContext(), id, TransfertNotification.TYPE_UPLOAD, "File " + file.getName(), isDisplayed);
 		storage.addNotification(id, notification);
 
-		SimpleTaskQuery query = new UploadTransfertTaskQuery(Prefs.getPreferences(getApplicationContext()).getString(Prefs.EMAIL, ""), Prefs.getPreferences(getApplicationContext()).getString(Prefs.PASSWORD, ""), file);
+		AbstractTaskQuery query = new UploadTransfertTaskQuery(Prefs.getPreferences(getApplicationContext()).getString(Prefs.EMAIL, ""), Prefs.getPreferences(getApplicationContext()).getString(Prefs.PASSWORD, ""), file);
 
 		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, query);
 	}
@@ -168,7 +179,7 @@ public class MainService extends Service implements TransfertTaskListener
 		Intent i = new Intent(Constants.INTENT_ACTION_TRANSFERTS_RUNNING);
 		i.putExtra(Constants.INTENT_ACTIONN_TASKS_RUNNING_NUMBER_KEY, n);
 		sendBroadcast(i);
-		
+
 		Prefs.getPreferences(getApplicationContext()).edit().putInt(Prefs.NUMBER_BACKGROUND_UPLOADS_RUNNING, n[0]).commit();
 		Prefs.getPreferences(getApplicationContext()).edit().putInt(Prefs.NUMBER_BACKGROUND_DOWNLOADS_RUNNING, n[1]).commit();
 	}
@@ -181,7 +192,7 @@ public class MainService extends Service implements TransfertTaskListener
 	public void onTaskStart(int id)
 	{
 		Log.i(TAG, "Task's callback : #" + id + " started");
-		
+
 		if (storage.countNotifications() == 1)
 		{
 			Notification dummy = new Notification(0, null, System.currentTimeMillis());
@@ -189,9 +200,9 @@ public class MainService extends Service implements TransfertTaskListener
 			startForeground(1337, dummy);
 			Log.i(TAG, "startForeground");
 		}
-		
+
 		storage.getNotification(id).start();
-		sendCountTransfert();		
+		sendCountTransfert();
 	}
 
 	@Override

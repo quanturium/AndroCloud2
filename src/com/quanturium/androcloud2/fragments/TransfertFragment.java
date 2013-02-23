@@ -11,6 +11,7 @@ import com.example.android.swipedismiss.SwipeDismissListViewTouchListener;
 import com.quanturium.androcloud2.FragmentInitParams;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.adapters.TransfertsAdapter;
+import com.quanturium.androcloud2.tools.Prefs;
 
 public class TransfertFragment extends AbstractListFragment
 {
@@ -33,6 +34,11 @@ public class TransfertFragment extends AbstractListFragment
 		adapter = new TransfertsAdapter(getActivity());
 		configureListview(getListView());
 		setListAdapter(adapter);
+		
+		if(adapter.getCountUpload() == 0)
+			Prefs.getPreferences(getActivity()).edit().putInt(Prefs.NUMBER_BACKGROUND_UPLOADS_RUNNING, 0).commit();
+		if(adapter.getCountDownload() == 0)
+			Prefs.getPreferences(getActivity()).edit().putInt(Prefs.NUMBER_BACKGROUND_DOWNLOADS_RUNNING, 0).commit();
 
 		Toast.makeText(getActivity(), "Swipe to cancel", Toast.LENGTH_SHORT).show();
 		updateView();

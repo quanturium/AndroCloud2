@@ -18,7 +18,7 @@ import com.quanturium.androcloud2.holders.TransfertItemViewHolder;
 import com.quanturium.androcloud2.models.TransfertTaskModel;
 import com.quanturium.androcloud2.models.TransfertTaskModel.Type;
 import com.quanturium.androcloud2.requests.TransfertStorage;
-import com.quanturium.androcloud2.requests.TransfertTask;
+import com.quanturium.androcloud2.requests.AbstractTransfertTask;
 
 public class TransfertsAdapter extends BaseAdapter
 {
@@ -43,7 +43,7 @@ public class TransfertsAdapter extends BaseAdapter
 
 	public void remove(int position)
 	{	
-		TransfertTask t = TransfertStorage.getInstance().getTask((int) getItemId(position));
+		AbstractTransfertTask t = TransfertStorage.getInstance().getTask((int) getItemId(position));
 		
 		if(t != null)
 			t.cancel(true);
