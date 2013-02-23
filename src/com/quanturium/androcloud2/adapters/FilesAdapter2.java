@@ -172,11 +172,11 @@ public class FilesAdapter2 extends CursorAdapter
 				{
 
 					case AUDIO:
-						itemViewHolder.icon.setImageResource(R.drawable.ic_itemtype_audio);
+						itemViewHolder.icon.setImageResource(R.drawable.ic_filetype_audio);
 						break;
 
 					case BOOKMARK:
-						itemViewHolder.icon.setImageResource(R.drawable.ic_itemtype_bookmark);
+						itemViewHolder.icon.setImageResource(R.drawable.ic_filetype_bookmark);
 						break;
 
 					case IMAGE:
@@ -184,20 +184,20 @@ public class FilesAdapter2 extends CursorAdapter
 						break;
 
 					case VIDEO:
-						itemViewHolder.icon.setImageResource(R.drawable.ic_itemtype_video);
+						itemViewHolder.icon.setImageResource(R.drawable.ic_filetype_video);
 						break;
 
 					case TEXT:
-						itemViewHolder.icon.setImageResource(R.drawable.ic_itemtype_text);
+						itemViewHolder.icon.setImageResource(R.drawable.ic_filetype_text);
 						break;
 
 					case ARCHIVE:
-						itemViewHolder.icon.setImageResource(R.drawable.ic_itemtype_archive);
+						itemViewHolder.icon.setImageResource(R.drawable.ic_filetype_archive);
 						break;
 
 					case UNKNOWN:
 					default:
-						itemViewHolder.icon.setImageResource(R.drawable.ic_itemtype_unknown);
+						itemViewHolder.icon.setImageResource(R.drawable.ic_filetype_unknown);
 						break;
 				}
 
