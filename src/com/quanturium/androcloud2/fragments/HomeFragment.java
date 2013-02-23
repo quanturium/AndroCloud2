@@ -1,56 +1,35 @@
 package com.quanturium.androcloud2.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.ListFragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.quanturium.androcloud2.FragmentInitParams;
 import com.quanturium.androcloud2.R;
-import com.quanturium.androcloud2.activities.MainActivity;
 import com.quanturium.androcloud2.adapters.HomeAdapter;
 import com.quanturium.androcloud2.adapters.MenuAdapter;
-import com.quanturium.androcloud2.listeners.FragmentListener;
 
-public class HomeFragment extends ListFragment implements OnItemClickListener
-{
-	private FragmentListener	mCallbacks	= null;
-	private final static String	TAG			= "HomeFragment";
-
+public class HomeFragment extends AbstractListFragment implements OnItemClickListener
+{	
 	private HomeAdapter			adapter;
 
 	@Override
-	public void onAttach(Activity activity)
+	protected FragmentInitParams init()
 	{
-		super.onAttach(activity);
-
-		if (!(activity instanceof FragmentListener))
-			throw new IllegalStateException("Activity must implement fragment's callbacks.");
-
-		this.mCallbacks = (FragmentListener) activity;
+		return new FragmentInitParams(R.layout.fragment_home, "Home", null, false, true);
 	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
-		return inflater.inflate(R.layout.fragment_home, container, false);
-	}
-
+	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		((MainActivity) getActivity()).setActionBarNavigationModeList(false);
-		getActivity().getActionBar().setTitle("Home");
 
 		adapter = new HomeAdapter(getActivity());
 		configureListview(getListView());
@@ -62,13 +41,6 @@ public class HomeFragment extends ListFragment implements OnItemClickListener
 		
 		if(fragment instanceof AddFileDropdownFragment)
 			this.mCallbacks.onAddFileActionClicked();
-	}
-
-	@Override
-	public void onDetach()
-	{
-		this.mCallbacks = null;
-		super.onDetach();
 	}
 
 	private void configureListview(ListView listView)
@@ -132,5 +104,4 @@ public class HomeFragment extends ListFragment implements OnItemClickListener
 
 		super.onCreateOptionsMenu(menu, inflater);
 	}
-
 }

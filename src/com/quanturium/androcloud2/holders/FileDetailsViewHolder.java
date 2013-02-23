@@ -2,7 +2,7 @@ package com.quanturium.androcloud2.holders;
 
 import android.widget.ImageView;
 
-public class FileDetailsActionViewHolder
+public class FileDetailsViewHolder
 {
 	public ImageView	view;
 	public ImageView	save;

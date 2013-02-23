@@ -6,66 +6,37 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.app.ListFragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.cloudapp.api.CloudAppException;
 import com.cloudapp.impl.model.CloudAppAccountImpl;
+import com.quanturium.androcloud2.FragmentInitParams;
 import com.quanturium.androcloud2.R;
-import com.quanturium.androcloud2.activities.MainActivity;
 import com.quanturium.androcloud2.adapters.UserAdapter;
-import com.quanturium.androcloud2.listeners.FragmentListener;
 import com.quanturium.androcloud2.tools.Prefs;
 
-public class UserFragment extends ListFragment implements OnItemClickListener
+public class UserFragment extends AbstractListFragment implements OnItemClickListener
 {
-	private FragmentListener	mCallbacks	= null;
-	private final static String	TAG			= "UserFragment";
-
 	private UserAdapter	adapter;
-
+	
 	@Override
-	public void onAttach(Activity activity)
+	protected FragmentInitParams init()
 	{
-		super.onAttach(activity);
-
-		if (!(activity instanceof FragmentListener))
-			throw new IllegalStateException("Activity must implement fragment's callbacks.");
-
-		this.mCallbacks = (FragmentListener) activity;
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
-		return inflater.inflate(R.layout.fragment_user, container, false);
+		return new FragmentInitParams(R.layout.fragment_user, "Account", null, false, false);
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		((MainActivity) getActivity()).setActionBarNavigationModeList(false);		
-		getActivity().getActionBar().setTitle("Account");
 		
 		adapter = new UserAdapter(getActivity(), getUserData());
 		configureListview(getListView());
 		setListAdapter(adapter);
-		setHasOptionsMenu(true);
-	}
-
-	@Override
-	public void onDetach()
-	{
-		this.mCallbacks = null;
-		super.onDetach();
 	}
 	
 	public Map<Integer,String> getUserData()

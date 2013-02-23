@@ -1,60 +1,38 @@
 package com.quanturium.androcloud2.fragments;
 
-import android.app.Activity;
-import android.app.ListFragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.swipedismiss.SwipeDismissListViewTouchListener;
+import com.quanturium.androcloud2.FragmentInitParams;
 import com.quanturium.androcloud2.R;
-import com.quanturium.androcloud2.activities.MainActivity;
 import com.quanturium.androcloud2.adapters.TransfertsAdapter;
-import com.quanturium.androcloud2.listeners.FragmentListener;
 
-public class TransfertFragment extends ListFragment
+public class TransfertFragment extends AbstractListFragment
 {
-	private FragmentListener	mCallbacks			= null;
-	private final static String	TAG					= "TransfertFragment";
 	private final static int	REFRESH_INTERVAL	= 5;
 	private volatile boolean	isActive			= false;
 
 	private TransfertsAdapter	adapter;
 
 	@Override
-	public void onAttach(Activity activity)
+	protected FragmentInitParams init()
 	{
-		super.onAttach(activity);
-
-		if (!(activity instanceof FragmentListener))
-			throw new IllegalStateException("Activity must implement fragment's callbacks.");
-
-		this.mCallbacks = (FragmentListener) activity;
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
-		return inflater.inflate(R.layout.fragment_transferts, container, false);
+		return new FragmentInitParams(R.layout.fragment_transferts, "Transferts", null, false, false);
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		((MainActivity) getActivity()).setActionBarNavigationModeList(false);
-		getActivity().getActionBar().setTitle("Transferts");
 
 		adapter = new TransfertsAdapter(getActivity());
 		configureListview(getListView());
 		setListAdapter(adapter);
-		setHasOptionsMenu(true);
 
 		Toast.makeText(getActivity(), "Swipe to cancel", Toast.LENGTH_SHORT).show();
 		updateView();
@@ -73,13 +51,6 @@ public class TransfertFragment extends ListFragment
 	{
 		this.isActive = false;
 		super.onPause();
-	}
-
-	@Override
-	public void onDetach()
-	{
-		this.mCallbacks = null;
-		super.onDetach();
 	}
 
 	private void configureListview(ListView listView)

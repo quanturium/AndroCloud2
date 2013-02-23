@@ -2,7 +2,6 @@ package com.quanturium.androcloud2.fragments;
 
 import android.app.ActionBar.OnNavigationListener;
 import android.app.Activity;
-import android.app.ListFragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Loader;
 import android.database.Cursor;
@@ -32,6 +31,7 @@ import com.cloudapp.api.model.CloudAppItem;
 import com.cloudapp.api.model.CloudAppItem.Type;
 import com.commonsware.cwac.loaderex.SQLiteCursorLoader;
 import com.quanturium.androcloud2.Constants;
+import com.quanturium.androcloud2.FragmentInitParams;
 import com.quanturium.androcloud2.MyApplication;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.activities.MainActivity;
@@ -44,10 +44,8 @@ import com.quanturium.androcloud2.requests.FilesTaskAnswer;
 import com.quanturium.androcloud2.requests.FilesTaskQuery;
 import com.quanturium.androcloud2.tools.Prefs;
 
-public abstract class FilesAbstractFragment extends ListFragment implements FilesTaskListener, OnItemClickListener, MultiChoiceModeListener, OnQueryTextListener, OnNavigationListener, LoaderCallbacks<Cursor>
+public abstract class FilesAbstractFragment extends AbstractListFragment implements FilesTaskListener, OnItemClickListener, MultiChoiceModeListener, OnQueryTextListener, OnNavigationListener, LoaderCallbacks<Cursor>
 {
-	protected FragmentListener	mCallbacks						= null;
-	private final static String	TAG								= "FilesFragment";
 	private FilesAdapter2		adapter							= null;
 	private SpinnerAdapter		dropdownAdapter;
 	protected FilesDatabase		database;
@@ -60,32 +58,23 @@ public abstract class FilesAbstractFragment extends ListFragment implements File
 	protected CloudAppItem.Type	filterType						= null;
 	private boolean				isFirstOnNavigationItemSelected	= true;
 
-	protected abstract boolean willDisplayTrash();	
-	protected abstract String getTitle();
+	protected abstract boolean willDisplayTrash();
+
+	public abstract void onItemClick(int itemId);
+
+	@Override
+	public abstract boolean onActionItemClicked(ActionMode mode, MenuItem item);
+
+	@Override
+	public abstract boolean onCreateActionMode(ActionMode mode, Menu menu);
 	
 	@Override
-	public void onAttach(Activity activity)
-	{
-		super.onAttach(activity);
-
-		if (!(activity instanceof FragmentListener))
-			throw new IllegalStateException("Activity must implement fragment's callbacks.");
-
-		this.mCallbacks = (FragmentListener) activity;
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
-		return inflater.inflate(R.layout.fragment_files, container, false);
-	}
+	protected abstract FragmentInitParams init();
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		((MainActivity) getActivity()).setActionBarNavigationModeList(true);
-		getActivity().getActionBar().setTitle(getTitle());
 
 		int position = 0;
 
@@ -334,8 +323,6 @@ public abstract class FilesAbstractFragment extends ListFragment implements File
 				onItemClick(id);
 		}
 	}
-	
-	public abstract void onItemClick(int itemId);
 
 	@Override
 	public void onTaskFinished(FilesTaskAnswer answer)
@@ -366,12 +353,6 @@ public abstract class FilesAbstractFragment extends ListFragment implements File
 		Log.e(TAG, "Task canceled");
 		((MyApplication) getActivity().getApplication()).setFilesTask(null);
 	}
-
-	@Override
-	public abstract boolean onActionItemClicked(ActionMode mode, MenuItem item);	
-
-	@Override
-	public abstract boolean onCreateActionMode(ActionMode mode, Menu menu);
 
 	@Override
 	public void onDestroyActionMode(ActionMode mode)

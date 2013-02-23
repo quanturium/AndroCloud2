@@ -157,6 +157,14 @@ public class FilesDatabase extends SQLiteOpenHelper
 		return cursor.getCount() == 0 ? -1 : cursor.getInt(cursor.getColumnIndex(FilesDatabase.COL_ID));
 	}
 
+	public Cursor getFile(int fileId)
+	{
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(TABLE_NAME, null, COL_ID + "=? AND " + COL_IS_TRASHED + "=?", new String[] { String.valueOf(fileId), "0" }, null, null, null, null);
+		cursor.moveToFirst();
+		return cursor;
+	}
+
 	public long getCount()
 	{
 		return DatabaseUtils.queryNumEntries(this.getReadableDatabase(), TABLE_NAME);

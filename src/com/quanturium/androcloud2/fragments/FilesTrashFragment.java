@@ -1,5 +1,8 @@
 package com.quanturium.androcloud2.fragments;
 
+import com.quanturium.androcloud2.FragmentInitParams;
+import com.quanturium.androcloud2.R;
+
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,10 +15,11 @@ public class FilesTrashFragment extends FilesAbstractFragment
 	{
 		return true;
 	}
-	
-	protected String getTitle()
+
+	@Override
+	protected FragmentInitParams init()
 	{
-		return "Trash";
+		return new FragmentInitParams(R.layout.fragment_files, "Trash", null, true, true);
 	}
 
 	@Override

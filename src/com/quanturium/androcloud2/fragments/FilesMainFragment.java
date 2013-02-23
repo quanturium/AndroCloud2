@@ -6,6 +6,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.quanturium.androcloud2.FragmentInitParams;
 import com.quanturium.androcloud2.R;
 
 
@@ -16,9 +17,10 @@ public class FilesMainFragment extends FilesAbstractFragment
 		return false;
 	}
 	
-	protected String getTitle()
+	@Override
+	protected FragmentInitParams init()
 	{
-		return "Files";
+		return new FragmentInitParams(R.layout.fragment_files, "Files", null, true, true);
 	}
 	
 	@Override

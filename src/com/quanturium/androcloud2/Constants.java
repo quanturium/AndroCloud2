@@ -28,7 +28,7 @@ public class Constants
 	final public static int		MAX_IMAGE_SIZE_PX							= 1000;
 
 	public final static String	INTENT_ACTIONN_TASKS_RUNNING_NUMBER_KEY		= "tasks_running";
-	public final static String	TASK_ID_KEY									= "task_id";
+	public final static String	ITEM_ID_KEY									= "task_id";
 	public final static String	DROPDOWN_INDEX_KEY							= "dropdown_index";
 	public final static String	NOTIFICATION_INTENT_ACTION_KEY				= "on_click_action";
 	public final static String	NOTIFICATION_INTENT_DATA_KEY				= "data";

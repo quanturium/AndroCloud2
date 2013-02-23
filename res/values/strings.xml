@@ -50,5 +50,6 @@
     </string-array>
     <string name="first_run">Welcome ! Set your credentials to start using the application.</string>
     <string name="about">Third party CloudApp application created by Arnaud Frugier.</string>
+    <string name="to_be_implemented">Will be implemented in the next version</string>
 
 </resources>

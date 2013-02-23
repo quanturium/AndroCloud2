@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.quanturium.androcloud2.Constants;
 import com.quanturium.androcloud2.MyApplication;
@@ -83,19 +84,6 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 
 		this.initialize(savedInstanceState);
 	}
-	
-	@Override
-	protected void onNewIntent(Intent i)
-	{
-		if (i != null && i.getAction() != null && i.getAction().equals(Constants.INTENT_ACTION_DISPLAY_TRANSFERTS))
-		{
-			FragmentTransaction ft = getFragmentManager().beginTransaction();
-			TransfertFragment transfertFragment = new TransfertFragment();
-			ft.replace(R.id.fragment_content_frame, transfertFragment, "ContentFragment");
-			ft.addToBackStack(null);
-			ft.commit();
-		}
-	}
 
 	@Override
 	protected void onResume()
@@ -146,6 +134,19 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 		}
 
 		ft.commit();
+	}
+	
+	@Override
+	protected void onNewIntent(Intent i)
+	{
+		if (i != null && i.getAction() != null && i.getAction().equals(Constants.INTENT_ACTION_DISPLAY_TRANSFERTS))
+		{
+			FragmentTransaction ft = getFragmentManager().beginTransaction();
+			TransfertFragment transfertFragment = new TransfertFragment();
+			ft.replace(R.id.fragment_content_frame, transfertFragment, "ContentFragment");
+			ft.addToBackStack(null);
+			ft.commit();
+		}
 	}
 
 	protected void onReceiveMessageFromService(Intent intent)
@@ -316,7 +317,7 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 	{
 		Fragment fragment = new FileDetailsFragment();
 		Bundle bundle = new Bundle();
-		bundle.putInt(Constants.TASK_ID_KEY, itemId);
+		bundle.putInt(Constants.ITEM_ID_KEY, itemId);
 		fragment.setArguments(bundle);
 
 		replaceContentFragment(fragment, true);
@@ -403,6 +404,9 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 
 			case AddFileAdapter.ITEM_BOOKMARK:
 
+				// TODO : popup to add a bookmark
+				Toast.makeText(this, R.string.to_be_implemented, Toast.LENGTH_SHORT).show();
+				
 				break;
 
 			case AddFileAdapter.ITEM_TEXT:
@@ -428,7 +432,7 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 				Intent intentVideo = new Intent();
 				intentVideo.setAction(Intent.ACTION_GET_CONTENT);
 				intentVideo.setType("video/*");
-				startActivityForResult(Intent.createChooser(intentVideo, "Choose an audio file"), Constants.ADD_FILE_RETURN_CODE);
+				startActivityForResult(Intent.createChooser(intentVideo, "Choose a video"), Constants.ADD_FILE_RETURN_CODE);
 
 				break;
 
