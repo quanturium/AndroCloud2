@@ -30,7 +30,6 @@ public class Prefs
 	public final static String	DIRECTORY_UNKOWN					= "directory_unknown";
 
 	public final static String	CLEAR_CACHE							= "clear_cache";
-	public final static String	SLIDING_ANIMATIONS_ENABLED			= "sliding_animations_enabled";
 
 	public final static String	NUMBER_BACKGROUND_UPLOADS_RUNNING	= "number_background_upload_running";
 	public final static String	NUMBER_BACKGROUND_DOWNLOADS_RUNNING	= "number_background_download_running";

@@ -221,20 +221,19 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 
 	}
 
-	private void replaceContentFragment(Fragment fragment, boolean animated)
+	private void replaceContentFragment(Fragment fragment)
 	{
-		FragmentTransaction t = this.getFragmentManager().beginTransaction();
-
+		FragmentTransaction ft = this.getFragmentManager().beginTransaction();
 		// t.setCustomAnimations(R.animator.slide_in_right_delayed1, R.animator.fade_out, R.animator.slide_in_right_delayed1, R.animator.fade_out);
 
-		boolean prefDisplayAnimationsEnabled = Prefs.getPreferences(this).getBoolean(Prefs.SLIDING_ANIMATIONS_ENABLED, true);
-		if (animated && prefDisplayAnimationsEnabled)
-			t.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right);
+//		boolean prefDisplayAnimationsEnabled = Prefs.getPreferences(this).getBoolean(Prefs.SLIDING_ANIMATIONS_ENABLED, true);
+//		if (animated && prefDisplayAnimationsEnabled)
+//			ft.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right);
 
-		t.replace(R.id.fragment_content_frame, fragment, "ContentFragment");
+		ft.replace(R.id.fragment_content_frame, fragment, "ContentFragment");
 
-		t.addToBackStack(null);
-		t.commit();
+		ft.addToBackStack(null);
+		ft.commit();
 	}
 
 	@Override
@@ -292,7 +291,7 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 				return;
 		}
 
-		replaceContentFragment(fragment, false);
+		replaceContentFragment(fragment);
 
 		if (getSlidingMenu().isMenuShowing())
 			this.mHandler.postDelayed(mHideMenuRunnable, DELAY_MENU_HIDE); // we delay the "toggle off" of the menu
@@ -306,7 +305,7 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 		bundle.putInt(Constants.ITEM_ID_KEY, itemId);
 		fragment.setArguments(bundle);
 
-		replaceContentFragment(fragment, true);
+		replaceContentFragment(fragment);
 	}
 
 	@Override
@@ -317,7 +316,7 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 		bundle.putInt(Constants.DROPDOWN_INDEX_KEY, position);
 		fragment.setArguments(bundle);
 
-		replaceContentFragment(fragment, false);
+		replaceContentFragment(fragment);
 	}
 
 	@Override

@@ -80,10 +80,11 @@
     <PreferenceCategory
         android:key="preferencesCategoryAdvancedSettings"
         android:title="Advanced Settings" >
-        <CheckBoxPreference android:key="sliding_animations_enabled" android:summaryOn="Enabled" android:title="Sliding animations" android:summaryOff="Disabled" android:defaultValue="true"/><Preference
+
+        <Preference
             android:key="clear_cache"
             android:title="Clear cache" />
-        
-    </PreferenceCategory>Sliding animations
+    </PreferenceCategory>
+Sliding animations
 
 </PreferenceScreen>
