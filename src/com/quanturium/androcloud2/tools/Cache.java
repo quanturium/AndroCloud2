@@ -30,7 +30,7 @@ public class Cache
 
 				FileOutputStream output = new FileOutputStream(file);
 
-				bitmap.compress(CompressFormat.JPEG, 100, output);
+				bitmap.compress(CompressFormat.PNG, 100, output);
 				output.flush();
 
 				output.close();
