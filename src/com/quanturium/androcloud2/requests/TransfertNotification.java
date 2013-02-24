@@ -47,7 +47,7 @@ public class TransfertNotification
 	{
 		String contentTitle = type == TYPE_DOWNLOAD ? "Download in progress" : "Upload in progress";
 		String ticker = type == TYPE_DOWNLOAD ? "Download started" : "Upload started";
-		int largeIcon = type == TYPE_DOWNLOAD ? R.drawable.ic_stat_download_running2 : R.drawable.ic_stat_upload_running2;
+		int largeIcon = type == TYPE_DOWNLOAD ? R.drawable.ic_stat_download_running : R.drawable.ic_stat_upload_running;
 
 		mBuilder.setSmallIcon(R.drawable.ic_stat_transfert_ticker);
 		mBuilder.setContentTitle(contentTitle);

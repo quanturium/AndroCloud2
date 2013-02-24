@@ -4,9 +4,9 @@
     <item android:id="@+id/multiItemSave" 
           android:title="Save" 
           android:showAsAction="ifRoom" 
-          android:icon="@drawable/ic_menu_save" />    
+          android:icon="@drawable/ic_action_save" />    
     <item android:id="@+id/multiItemDelete" 
           android:title="delete" 
           android:showAsAction="ifRoom" 
-          android:icon="@drawable/ic_menu_delete" />                                                     
+          android:icon="@drawable/ic_action_delete" />                                                     
 </menu>

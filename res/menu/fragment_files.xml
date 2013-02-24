@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/menu_search"
           android:title="Search"
-          android:icon="@drawable/ic_menu_search2"
+          android:icon="@drawable/ic_ab_search"
           android:showAsAction="always|collapseActionView"
           android:actionViewClass="android.widget.SearchView" />
     <item android:id="@+id/menuItemRefresh" 
           android:title="Refresh" 
           android:showAsAction="always" 
-          android:icon="@drawable/ic_menu_refresh2"
+          android:icon="@drawable/ic_ab_refresh"
           android:visible="false" />
     <item android:id="@+id/menuItemProgress"
           android:actionLayout="@layout/progress"
