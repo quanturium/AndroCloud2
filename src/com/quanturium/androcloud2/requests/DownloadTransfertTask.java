@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import android.util.Log;
+
 import com.quanturium.androcloud2.listeners.TransfertTaskListener;
 
 public class DownloadTransfertTask extends AbstractTransfertTask
@@ -26,6 +28,7 @@ public class DownloadTransfertTask extends AbstractTransfertTask
 		
 		try
 		{
+			query.file.getParentFile().mkdirs();
 			query.file.createNewFile();
 			URL url = new URL(query.url);
 			
