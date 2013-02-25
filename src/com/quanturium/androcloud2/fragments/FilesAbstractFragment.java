@@ -41,18 +41,18 @@ import com.quanturium.androcloud2.tools.Prefs;
 
 public abstract class FilesAbstractFragment extends AbstractListFragment implements FilesTaskListener, OnItemClickListener, MultiChoiceModeListener, OnQueryTextListener, OnNavigationListener, LoaderCallbacks<Cursor>
 {
-	private FilesAdapter2		adapter							= null;
+	private FilesAdapter2		adapter					= null;
 	private SpinnerAdapter		dropdownAdapter;
 	protected FilesDatabase		database;
 
 	protected MenuItem			menuItemProgress;
 	protected MenuItem			menuItemRefresh;
-	private boolean				currentlyLoading				= false;
+	private boolean				currentlyLoading		= false;
 
-	protected String			filterText						= "";
-	protected CloudAppItem.Type	filterType						= null;
+	protected String			filterText				= "";
+	protected CloudAppItem.Type	filterType				= null;
 
-	private int					stateDropdownPosition			= -1;
+	private int					stateDropdownPosition	= -1;
 
 	protected abstract boolean willDisplayTrash();
 

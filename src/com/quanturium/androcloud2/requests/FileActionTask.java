@@ -13,37 +13,44 @@ public class FileActionTask extends AsyncTask<FileActionTaskQuery, Integer, Void
 	protected Void doInBackground(FileActionTaskQuery... params)
 	{
 		FileActionTaskQuery query = params[0];
-		CloudApp api = new CloudAppImpl(query.username , query.password);
+		CloudApp api = new CloudAppImpl(query.username, query.password);
 
 		switch (query.type)
 		{
 			case RENAME:
-				
+
 				try
 				{
 					api.rename(query.item, query.newName);
 				} catch (CloudAppException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
 				break;
 
 			case DELETE:
-				
+
 				try
 				{
 					api.delete(query.item);
 				} catch (CloudAppException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
 				break;
+
+			case RESTORE:
+				try
+				{
+					api.recover(query.item);
+				} catch (CloudAppException e)
+				{
+					e.printStackTrace();
+				}
 		}
-		
+
 		return null;
 	}
 

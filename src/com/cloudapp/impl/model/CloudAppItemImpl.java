@@ -156,6 +156,6 @@ public class CloudAppItemImpl extends CloudAppModel implements CloudAppItem
 		if(deleted)
 			putString("deleted_at", format.format((new Date())));
 		else
-			putString("deleted_at", null);
+			putString("deleted_at", "null");
 	}
 }

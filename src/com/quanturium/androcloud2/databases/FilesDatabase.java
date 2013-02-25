@@ -153,16 +153,28 @@ public class FilesDatabase extends SQLiteOpenHelper
 	{
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_NAME, null, COL_URL + "=?", new String[] { url }, null, null, null, null);
-		cursor.moveToFirst();
-		return cursor.getCount() == 0 ? -1 : cursor.getInt(cursor.getColumnIndex(FilesDatabase.COL_ID));
+		
+		if (cursor.getCount() == 1)
+		{
+			cursor.moveToFirst();
+			return cursor.getInt(cursor.getColumnIndex(FilesDatabase.COL_ID));
+		}
+
+		return -1;
 	}
 
-	public Cursor getFile(int fileId)
+	public Cursor getFile(int fileId, boolean trashed)
 	{
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_NAME, null, COL_ID + "=? AND " + COL_IS_TRASHED + "=?", new String[] { String.valueOf(fileId), "0" }, null, null, null, null);
-		cursor.moveToFirst();
-		return cursor;
+		Cursor cursor = db.query(TABLE_NAME, null, COL_ID + "=? AND " + COL_IS_TRASHED + "=?", new String[] { String.valueOf(fileId), trashed ? "1" : "0" }, null, null, null, null);
+		
+		if(cursor.getCount() == 1)
+		{
+			cursor.moveToFirst();
+			return cursor;
+		}		
+		
+		return null;
 	}
 
 	public long getCount()

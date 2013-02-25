@@ -176,7 +176,7 @@ public class FileDetailsFragment extends AbstractFragment implements OnClickList
 
 	private void loadItem() throws JSONException, CloudAppException
 	{
-		Cursor cursor = database.getFile(itemId);
+		Cursor cursor = database.getFile(itemId, false);
 		String json = cursor.getString(cursor.getColumnIndex(FilesDatabase.COL_DATA));
 
 		if (json != null)
@@ -459,7 +459,6 @@ public class FileDetailsFragment extends AbstractFragment implements OnClickList
 		builder.setMessage("The file has not been found on your device. You must save it first. Would you like to download the file ?");
 		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
 		{
-
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{

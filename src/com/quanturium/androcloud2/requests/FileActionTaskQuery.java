@@ -6,7 +6,7 @@ public class FileActionTaskQuery extends AbstractTaskQuery
 {
 	public enum ActionType
 	{
-		DELETE, RENAME
+		DELETE, RENAME, RESTORE
 	}
 
 	public final ActionType	type;

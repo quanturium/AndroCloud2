@@ -9,20 +9,19 @@ import android.widget.Toast;
 import com.quanturium.androcloud2.FragmentInitParams;
 import com.quanturium.androcloud2.R;
 
-
 public class FilesMainFragment extends FilesAbstractFragment
 {
 	protected boolean willDisplayTrash()
 	{
 		return false;
 	}
-	
+
 	@Override
 	protected FragmentInitParams init()
 	{
 		return new FragmentInitParams(R.layout.fragment_files, "Files", null, true, true);
 	}
-	
+
 	@Override
 	public boolean onActionItemClicked(ActionMode mode, MenuItem item)
 	{
