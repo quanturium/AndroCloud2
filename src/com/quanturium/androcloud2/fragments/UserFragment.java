@@ -18,6 +18,7 @@ import com.quanturium.androcloud2.FragmentInitParams;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.adapters.UserAdapter;
 import com.quanturium.androcloud2.tools.Prefs;
+import com.quanturium.androcloud2.tools.Tools;
 
 public class UserFragment extends AbstractListFragment implements OnItemClickListener
 {
@@ -47,7 +48,7 @@ public class UserFragment extends AbstractListFragment implements OnItemClickLis
 		{
 			CloudAppAccountImpl account = new CloudAppAccountImpl(new JSONObject(Prefs.getPreferences(getActivity()).getString(Prefs.USER_INFOS, null)));			
 			datas.put(UserAdapter.ITEM_SUBSCRIBED, account.isSubscribed() ? "Yes" : "No");
-			datas.put(UserAdapter.ITEM_SUBSCRIBED_EXPIRES,  "n/a");
+			datas.put(UserAdapter.ITEM_SUBSCRIBED_EXPIRES, account.SubscriptionExpiresAt() == null ? "n/a" : Tools.getDateFormated(account.SubscriptionExpiresAt(), Tools.dateFormatSimple));
 			datas.put(UserAdapter.ITEM_DOMAIN, (account.getDomain() == null || account.getDomain().equals("") || account.getDomain().equals("null")) ? "n/a" : account.getDomain());
 		} catch (JSONException e)
 		{

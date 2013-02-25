@@ -12,6 +12,7 @@ public abstract class CloudAppModel
 {
 	public JSONObject					json;
 	protected static final DateFormat	format	= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+	protected static final DateFormat	formatBis	= new SimpleDateFormat("yyyy-MM-dd");
 
 	protected String getString(String key) throws CloudAppException
 	{

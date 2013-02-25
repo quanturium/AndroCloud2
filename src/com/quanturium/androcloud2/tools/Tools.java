@@ -16,7 +16,8 @@ import android.view.Display;
 
 public class Tools
 {
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM.dd.yyyy HH:mm");
+	public static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM.dd.yyyy HH:mm");
+	public static final SimpleDateFormat dateFormatSimple = new SimpleDateFormat("MM.dd.yyyy");
 	
 	public static String implode(String delim, String[] args)
 	{
@@ -126,8 +127,8 @@ public class Tools
 		return file;
 	}
 	
-	public static String getDateFormated(Date date)
+	public static String getDateFormated(Date date, SimpleDateFormat format)
 	{
-		return dateFormat.format(date);
+		return format.format(date);
 	}
 }

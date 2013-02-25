@@ -171,7 +171,7 @@ public class FilesAdapter2 extends CursorAdapter
 
 				itemViewHolder.title.setText(item.getName());
 				itemViewHolder.count.setText(item.getViewCounter() + "");
-				itemViewHolder.date.setText(Tools.getDateFormated(item.getUpdatedAt()));
+				itemViewHolder.date.setText(Tools.getDateFormated(item.getUpdatedAt(), Tools.dateFormat));
 
 				switch (item.getItemType())
 				{

@@ -60,6 +60,8 @@ public interface CloudAppAccount
 	 * @return The date you activated your account.
 	 */
 	public Date ActivatedAt() throws CloudAppException;
+	
+	public Date SubscriptionExpiresAt() throws CloudAppException;
 
 	JSONObject getJson();
 }
