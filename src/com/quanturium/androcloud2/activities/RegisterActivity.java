@@ -37,8 +37,8 @@ public class RegisterActivity extends Activity implements OnClickListener
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
-		emailText = (EditText) findViewById(R.id.loginEmail);
-		passwordText = (EditText) findViewById(R.id.loginPassword);
+		emailText = (EditText) findViewById(R.id.registerEmail);
+		passwordText = (EditText) findViewById(R.id.registerPassword);
 		registerButton = (Button) findViewById(R.id.registerBouton);
 		registerButton.setOnClickListener(this);
 	}
