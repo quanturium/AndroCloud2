@@ -226,9 +226,9 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 		FragmentTransaction ft = this.getFragmentManager().beginTransaction();
 		// t.setCustomAnimations(R.animator.slide_in_right_delayed1, R.animator.fade_out, R.animator.slide_in_right_delayed1, R.animator.fade_out);
 
-//		boolean prefDisplayAnimationsEnabled = Prefs.getPreferences(this).getBoolean(Prefs.SLIDING_ANIMATIONS_ENABLED, true);
-//		if (animated && prefDisplayAnimationsEnabled)
-//			ft.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right);
+		// boolean prefDisplayAnimationsEnabled = Prefs.getPreferences(this).getBoolean(Prefs.SLIDING_ANIMATIONS_ENABLED, true);
+		// if (animated && prefDisplayAnimationsEnabled)
+		// ft.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right);
 
 		ft.replace(R.id.fragment_content_frame, fragment, "ContentFragment");
 
@@ -445,6 +445,12 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 	@Override
 	public void onUserLoggedOut()
 	{
+		Prefs.getPreferences(getApplicationContext()).edit().remove(Prefs.USER_INFOS).commit();
+		Prefs.getPreferences(getApplicationContext()).edit().remove(Prefs.EMAIL).commit();
+		Prefs.getPreferences(getApplicationContext()).edit().remove(Prefs.PASSWORD).commit();
+		Prefs.getPreferences(getApplicationContext()).edit().remove(Prefs.HASH).commit();
+		Prefs.getPreferences(getApplicationContext()).edit().putBoolean(Prefs.LOGGED_IN, false).commit();
+
 		goToSplashActivity(true);
 	}
 }

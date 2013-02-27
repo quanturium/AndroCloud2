@@ -73,13 +73,7 @@ public class UserFragment extends AbstractListFragment implements OnItemClickLis
 	{
 		switch(position)
 		{
-			case UserAdapter.ITEM_LOG_OUT : 
-				
-				Prefs.getPreferences(getActivity()).edit().remove(Prefs.USER_INFOS).commit();
-				Prefs.getPreferences(getActivity()).edit().remove(Prefs.EMAIL).commit();
-				Prefs.getPreferences(getActivity()).edit().remove(Prefs.PASSWORD).commit();
-				Prefs.getPreferences(getActivity()).edit().remove(Prefs.HASH).commit();
-				Prefs.getPreferences(getActivity()).edit().putBoolean(Prefs.LOGGED_IN, false).commit();
+			case UserAdapter.ITEM_LOG_OUT : 								
 				
 				this.mCallbacks.onUserLoggedOut();
 				

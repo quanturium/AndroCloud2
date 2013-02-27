@@ -96,8 +96,6 @@ public class MainService extends Service implements TransfertTaskListener
 						File file = Tools.uriToFile(this, fileUri);
 
 						Log.i(TAG, "Sharing file's path : " + file.toString());
-						// TransfertTask task = new UploadTask(this, file);
-						// task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "test");
 
 						actionStartUpload(file);
 					}
@@ -120,8 +118,6 @@ public class MainService extends Service implements TransfertTaskListener
 							file = Tools.uriToFile(this, fileUri);
 
 							Log.i(TAG, "Sharing file's path : " + file.toString());
-							// TransfertTask task = new UploadTask(this, file);
-							// task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "test");
 
 							actionStartUpload(file);
 						}
