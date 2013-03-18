@@ -3,7 +3,6 @@ package com.cloudapp.impl.model;
 import java.text.ParseException;
 import java.util.Date;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.cloudapp.api.CloudAppException;
