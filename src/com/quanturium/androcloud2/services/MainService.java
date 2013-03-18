@@ -145,7 +145,7 @@ public class MainService extends Service implements TransfertTaskListener
 
 		File file = new File(path, name);
 		boolean isDisplayed = Prefs.getPreferences(getApplicationContext()).getBoolean(Prefs.DOWNLOAD_NOTIFICATION_SHOW, true);
-		TransfertNotification notification = new TransfertNotification(getApplicationContext(), id, TransfertNotification.TYPE_DOWNLOAD, "Url " + file.getName(), isDisplayed);
+		TransfertNotification notification = new TransfertNotification(getApplicationContext(), id, TransfertNotification.TYPE_DOWNLOAD, file.getName(), isDisplayed);
 		storage.addNotification(id, notification);
 				
 		AbstractTaskQuery query = new DownloadTransfertTaskQuery(Prefs.getPreferences(getApplicationContext()).getString(Prefs.EMAIL, ""), Prefs.getPreferences(getApplicationContext()).getString(Prefs.PASSWORD, ""), file, url);
@@ -160,7 +160,7 @@ public class MainService extends Service implements TransfertTaskListener
 		task.setId(id);
 
 		boolean isDisplayed = Prefs.getPreferences(getApplicationContext()).getBoolean(Prefs.UPLOAD_NOTIFICATION_SHOW, true);
-		TransfertNotification notification = new TransfertNotification(getApplicationContext(), id, TransfertNotification.TYPE_UPLOAD, "File " + file.getName(), isDisplayed);
+		TransfertNotification notification = new TransfertNotification(getApplicationContext(), id, TransfertNotification.TYPE_UPLOAD, file.getName(), isDisplayed);
 		storage.addNotification(id, notification);
 
 		AbstractTaskQuery query = new UploadTransfertTaskQuery(Prefs.getPreferences(getApplicationContext()).getString(Prefs.EMAIL, ""), Prefs.getPreferences(getApplicationContext()).getString(Prefs.PASSWORD, ""), file);

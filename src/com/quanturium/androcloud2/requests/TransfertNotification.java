@@ -94,7 +94,7 @@ public class TransfertNotification
 			mBuilder.setOngoing(false);
 			mBuilder.setProgress(0, 0, false);
 			mBuilder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_stat_transfert_finished));
-			mBuilder.setContentText(getDescription());
+//			mBuilder.setContentText(getDescription());
 
 			Intent intent;
 
