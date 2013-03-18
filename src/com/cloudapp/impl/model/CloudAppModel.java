@@ -2,6 +2,7 @@ package com.cloudapp.impl.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +15,11 @@ public abstract class CloudAppModel
 	protected static final DateFormat	format	= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 	protected static final DateFormat	formatBis	= new SimpleDateFormat("yyyy-MM-dd");
 
+	static {
+		format.setTimeZone(TimeZone.getTimeZone("GMT"));
+		formatBis.setTimeZone(TimeZone.getTimeZone("GMT"));
+	}
+	
 	protected String getString(String key) throws CloudAppException
 	{
 		try

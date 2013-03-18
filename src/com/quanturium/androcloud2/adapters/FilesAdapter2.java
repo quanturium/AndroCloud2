@@ -1,6 +1,8 @@
 package com.quanturium.androcloud2.adapters;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -171,7 +172,8 @@ public class FilesAdapter2 extends CursorAdapter
 
 				itemViewHolder.title.setText(item.getName());
 				itemViewHolder.count.setText(item.getViewCounter() + "");
-				itemViewHolder.date.setText(Tools.getDateFormated(item.getUpdatedAt(), Tools.dateFormat));
+				itemViewHolder.date.setText(Tools.getElapsedTimeFrom(item.getUpdatedAt()));
+				
 
 				switch (item.getItemType())
 				{
