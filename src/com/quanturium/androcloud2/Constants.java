@@ -39,5 +39,7 @@ public class Constants
 	public final static String	FILE_ALERT_SAVE_KEY							= "file_alert_save";
 	public final static String	FILE_ALERT_RENAME_KEY						= "file_alert_rename";
 	public final static String	FILE_ALERT_RESTORE_KEY						= "file_alert_restore";
+	public final static String	ABOUT_ALERT_CHANGELOG_KEY					= "about_alert_changelog";
 	public final static String	FILE_ITEMID_RESTORE_KEY						= "file_itemid_restore";
+
 }
