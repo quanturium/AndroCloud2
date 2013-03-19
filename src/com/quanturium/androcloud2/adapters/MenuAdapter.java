@@ -27,7 +27,7 @@ public class MenuAdapter extends BaseAdapter
 	public final static int	ITEM_SEPARATOR_1	= 1;
 	public final static int	ITEM_HOME			= 2;
 	public final static int	ITEM_ADD_FILE		= 3;
-	public final static int	ITEM_ADD_FILES_BIS	= 4;
+	public final static int	ITEM_ADD_FILE_BIS	= 4;
 	public final static int	ITEM_SHOW_ALL		= 5;
 	public final static int	ITEM_SHOW_TRASH		= 6;
 	public final static int	ITEM_SEPARATOR_2	= 7;
@@ -35,11 +35,12 @@ public class MenuAdapter extends BaseAdapter
 	public final static int	ITEM_SEPARATOR_3	= 9;
 	public final static int	ITEM_PREFERENCES	= 10;
 	public final static int	ITEM_ABOUT			= 11;
+	public final static int	ITEM_RATETHEAPP		= 12;
 
 	public final static int	TYPE_NORMAL			= 0;
 	public final static int	TYPE_TRANSFERT		= 1;
 	public final static int	TYPE_SEPARATOR		= 2;
-	public final static int	TYPE_ADDFILES		= 3;
+	public final static int	TYPE_ADDFILE		= 3;
 
 	public MenuAdapter(Context context)
 	{
@@ -55,7 +56,7 @@ public class MenuAdapter extends BaseAdapter
 	@Override
 	public int getCount()
 	{
-		return 12;
+		return 13;
 	}
 
 	@Override
@@ -95,9 +96,9 @@ public class MenuAdapter extends BaseAdapter
 
 				return TYPE_SEPARATOR;
 
-			case ITEM_ADD_FILES_BIS:
+			case ITEM_ADD_FILE_BIS:
 
-				return TYPE_ADDFILES;
+				return TYPE_ADDFILE;
 		}
 
 		return 0;
@@ -117,7 +118,7 @@ public class MenuAdapter extends BaseAdapter
 			case ITEM_SEPARATOR_1:
 			case ITEM_SEPARATOR_2:
 			case ITEM_SEPARATOR_3:
-			case ITEM_ADD_FILES_BIS:
+			case ITEM_ADD_FILE_BIS:
 
 				return false;
 
@@ -171,8 +172,8 @@ public class MenuAdapter extends BaseAdapter
 
 					break;
 
-				case TYPE_ADDFILES :
-					
+				case TYPE_ADDFILE:
+
 					convertView = this.inflater.inflate(R.layout.row_menu_addfile_bis, parent, false);
 
 					break;
@@ -249,6 +250,13 @@ public class MenuAdapter extends BaseAdapter
 				viewHolder.name.setText("About");
 				viewHolder.icon.setImageResource(R.drawable.ic_menu_about);
 
+				break;
+				
+			case ITEM_RATETHEAPP :
+				
+				viewHolder.name.setText("Rate this app");
+				viewHolder.icon.setImageResource(R.drawable.ic_menu_rate);
+				
 				break;
 
 			case ITEM_SEPARATOR_1:

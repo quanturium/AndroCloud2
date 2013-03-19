@@ -9,9 +9,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -266,6 +266,14 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 				fragment = new AboutFragment();
 
 				break;
+				
+			case MenuAdapter.ITEM_RATETHEAPP :
+				
+				String packageName = getApplicationContext().getPackageName();
+				Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
+				i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(i);
+				return;
 
 			case MenuAdapter.ITEM_SHOW_ALL:
 
