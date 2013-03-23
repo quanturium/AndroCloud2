@@ -12,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.quanturium.androcloud2.FragmentInitParams;
+import com.quanturium.androcloud2.MyApplication;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.adapters.HomeAdapter;
 import com.quanturium.androcloud2.adapters.MenuAdapter;
@@ -24,6 +25,13 @@ public class HomeFragment extends AbstractListFragment implements OnItemClickLis
 	protected FragmentInitParams init()
 	{
 		return new FragmentInitParams(R.layout.fragment_home, "Home", null, false, true);
+	}
+	
+	@Override
+	public void onStart()
+	{
+		((MyApplication) getActivity().getApplication()).getTracker().sendView("home");
+		super.onStart();
 	}
 	
 	@Override

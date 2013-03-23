@@ -5,6 +5,8 @@ public class Constants
 	// public final static String INTENT_ACTION_NOTIFICATION_CANCELED = "com.quanturium.androcloud2.intent.action_notification_canceled";
 	// public final static String INTENT_ACTION_NOTIFICATION_CLICKED = "com.quanturium.androcloud2.intent.action_notification_clicked";
 
+	public final static String	ANALYTICS_TRACKING_ID						= "UA-28301626-3";
+
 	public final static String	INTENT_ACTION_TRANSFERTS_RUNNING			= "com.quanturium.androcloud2.intent.action_transferts_running";
 	public final static String	INTENT_ACTION_DISPLAY_TRANSFERTS			= "com.quanturium.androcloud2.intent.action_display_transferts";
 	public final static String	INTENT_ACTION_NOTIFICATION_UPLOAD_ACTION	= "com.quanturium.androcloud2.intent.action_notification_upload_action";

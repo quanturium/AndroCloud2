@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.quanturium.androcloud2.FragmentInitParams;
+import com.quanturium.androcloud2.MyApplication;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.adapters.AddFileAdapter;
 

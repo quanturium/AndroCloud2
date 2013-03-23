@@ -24,6 +24,7 @@ public class ShareActivity extends Activity
 		{
 			if(Prefs.getPreferences(this).getBoolean(Prefs.LOGGED_IN, false))
 			{
+				((MyApplication)getApplication()).getTracker().sendEvent("user_action", "share", "file", null);
 				((MyApplication)getApplication()).sendToMainService(intent);
 			}
 			else

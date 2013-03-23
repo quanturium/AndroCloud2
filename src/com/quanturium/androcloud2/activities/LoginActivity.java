@@ -17,6 +17,7 @@ import com.cloudapp.api.CloudApp;
 import com.cloudapp.api.CloudAppException;
 import com.cloudapp.api.model.CloudAppAccount;
 import com.cloudapp.impl.CloudAppImpl;
+import com.quanturium.androcloud2.MyApplication;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.tools.Prefs;
 
@@ -40,6 +41,13 @@ public class LoginActivity extends Activity implements OnClickListener
 		passwordText = (EditText) findViewById(R.id.loginPassword);
 		loginButton = (Button) findViewById(R.id.loginBouton);
 		loginButton.setOnClickListener(this);
+	}
+	
+	@Override
+	protected void onStart()
+	{
+		((MyApplication)getApplication()).getTracker().sendView("login");
+		super.onStart();
 	}
 
 	@Override
@@ -123,6 +131,9 @@ public class LoginActivity extends Activity implements OnClickListener
 
 									Intent returnIntent = new Intent();
 									setResult(RESULT_OK, returnIntent);
+									
+									((MyApplication)getApplication()).getTracker().setStartSession(true);
+									
 									finish();
 								}
 							});

@@ -17,6 +17,7 @@ import com.cloudapp.api.CloudApp;
 import com.cloudapp.api.CloudAppException;
 import com.cloudapp.api.model.CloudAppAccount;
 import com.cloudapp.impl.CloudAppImpl;
+import com.quanturium.androcloud2.MyApplication;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.tools.Prefs;
 
@@ -41,6 +42,13 @@ public class RegisterActivity extends Activity implements OnClickListener
 		passwordText = (EditText) findViewById(R.id.registerPassword);
 		registerButton = (Button) findViewById(R.id.registerBouton);
 		registerButton.setOnClickListener(this);
+	}
+	
+	@Override
+	protected void onStart()
+	{
+		((MyApplication)getApplication()).getTracker().sendView("register");
+		super.onStart();
 	}
 	
 	@Override

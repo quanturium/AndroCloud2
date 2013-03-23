@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.cloudapp.api.CloudAppException;
 import com.cloudapp.impl.model.CloudAppAccountImpl;
 import com.quanturium.androcloud2.FragmentInitParams;
+import com.quanturium.androcloud2.MyApplication;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.adapters.UserAdapter;
 import com.quanturium.androcloud2.tools.Prefs;
@@ -28,6 +29,13 @@ public class UserFragment extends AbstractListFragment implements OnItemClickLis
 	protected FragmentInitParams init()
 	{
 		return new FragmentInitParams(R.layout.fragment_user, "Account", null, false, false);
+	}
+	
+	@Override
+	public void onStart()
+	{
+		((MyApplication) getActivity().getApplication()).getTracker().sendView("user");
+		super.onStart();
 	}
 
 	@Override

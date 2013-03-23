@@ -7,6 +7,8 @@ import android.app.Application;
 import android.content.ComponentName;
 import android.content.Intent;
 
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 import com.quanturium.androcloud2.requests.FilesTask;
 import com.quanturium.androcloud2.requests.ImageCacheTask;
 import com.quanturium.androcloud2.services.MainService;
@@ -15,7 +17,28 @@ public class MyApplication extends Application
 {
 	private FilesTask						filesTask;
 	private Map<Integer, ImageCacheTask>	imageCacheTaskArray	= new HashMap<Integer, ImageCacheTask>();
+	private GoogleAnalytics					googleAnalytics;
+	private Tracker							tracker;
 
+	@Override
+	public void onCreate()
+	{		
+		setupAnalytics();
+		super.onCreate();
+	}
+
+	private void setupAnalytics()
+	{
+		this.googleAnalytics = GoogleAnalytics.getInstance(this);
+		this.googleAnalytics.setDebug(true);
+		this.tracker = this.googleAnalytics.getTracker(Constants.ANALYTICS_TRACKING_ID);
+	}
+	
+	public Tracker getTracker()
+	{
+		return this.tracker;
+	}
+	
 	public ImageCacheTask getImageCacheTask(int id)
 	{
 		return imageCacheTaskArray.get(id);

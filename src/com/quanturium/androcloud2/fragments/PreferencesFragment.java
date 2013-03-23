@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
+import com.quanturium.androcloud2.MyApplication;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.activities.MainActivity;
 import com.quanturium.androcloud2.databases.FilesDatabase;
@@ -34,6 +35,13 @@ public class PreferencesFragment extends PreferenceFragment implements OnSharedP
 			throw new IllegalStateException("Activity must implement fragment's callbacks.");
 
 		this.mCallbacks = (FragmentListener) activity;
+	}
+	
+	@Override
+	public void onStart()
+	{
+		((MyApplication) getActivity().getApplication()).getTracker().sendView("preferences");
+		super.onStart();
 	}
 
 	@Override

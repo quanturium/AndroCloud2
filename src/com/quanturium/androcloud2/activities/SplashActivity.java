@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.quanturium.androcloud2.MyApplication;
 import com.quanturium.androcloud2.R;
 
 public class SplashActivity extends Activity implements OnClickListener
@@ -47,6 +48,13 @@ public class SplashActivity extends Activity implements OnClickListener
 		{
 			onClick(buttonLogin);
 		}
+	}
+	
+	@Override
+	protected void onStart()
+	{
+		((MyApplication)getApplication()).getTracker().sendView("splash");
+		super.onStart();
 	}
 
 	private void setUI(boolean animated)

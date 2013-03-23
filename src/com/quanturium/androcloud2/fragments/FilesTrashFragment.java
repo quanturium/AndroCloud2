@@ -17,6 +17,7 @@ import com.cloudapp.api.model.CloudAppItem;
 import com.cloudapp.impl.model.CloudAppItemImpl;
 import com.quanturium.androcloud2.Constants;
 import com.quanturium.androcloud2.FragmentInitParams;
+import com.quanturium.androcloud2.MyApplication;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.activities.MainActivity;
 import com.quanturium.androcloud2.databases.FilesDatabase;
@@ -39,6 +40,13 @@ public class FilesTrashFragment extends FilesAbstractFragment
 	protected FragmentInitParams init()
 	{
 		return new FragmentInitParams(R.layout.fragment_files, "Trash", null, true, true);
+	}
+	
+	@Override
+	public void onStart()
+	{
+		((MyApplication) getActivity().getApplication()).getTracker().sendView("trash");
+		super.onStart();
 	}
 
 	@Override

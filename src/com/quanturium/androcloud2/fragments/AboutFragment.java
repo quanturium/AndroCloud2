@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.quanturium.androcloud2.Constants;
 import com.quanturium.androcloud2.FragmentInitParams;
+import com.quanturium.androcloud2.MyApplication;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.changelog.ChangelogEntryXmlParser;
 import com.quanturium.androcloud2.models.ChangelogEntryItemModel;
@@ -37,6 +38,13 @@ public class AboutFragment extends AbstractFragment implements OnClickListener
 	protected FragmentInitParams init()
 	{
 		return new FragmentInitParams(R.layout.fragment_about, "About", null, false, false);
+	}
+	
+	@Override
+	public void onStart()
+	{
+		((MyApplication) getActivity().getApplication()).getTracker().sendView("about");
+		super.onStart();
 	}
 
 	@Override

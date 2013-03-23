@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.android.swipedismiss.SwipeDismissListViewTouchListener;
 import com.quanturium.androcloud2.FragmentInitParams;
+import com.quanturium.androcloud2.MyApplication;
 import com.quanturium.androcloud2.R;
 import com.quanturium.androcloud2.adapters.TransfertsAdapter;
 import com.quanturium.androcloud2.tools.Prefs;
@@ -24,6 +25,13 @@ public class TransfertFragment extends AbstractListFragment
 	protected FragmentInitParams init()
 	{
 		return new FragmentInitParams(R.layout.fragment_transferts, "Transferts", null, false, false);
+	}
+	
+	@Override
+	public void onStart()
+	{
+		((MyApplication) getActivity().getApplication()).getTracker().sendView("transferts");
+		super.onStart();
 	}
 
 	@Override

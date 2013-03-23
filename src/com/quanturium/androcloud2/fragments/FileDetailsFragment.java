@@ -64,6 +64,13 @@ public class FileDetailsFragment extends AbstractFragment implements OnClickList
 	{
 		return new FragmentInitParams(R.layout.fragment_filedetails, "File", null, false, false);
 	}
+	
+	@Override
+	public void onStart()
+	{
+		((MyApplication) getActivity().getApplication()).getTracker().sendView("file_details");
+		super.onStart();
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
