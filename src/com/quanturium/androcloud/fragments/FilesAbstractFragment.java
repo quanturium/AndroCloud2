@@ -31,7 +31,7 @@ import com.quanturium.androcloud.Constants;
 import com.quanturium.androcloud.FragmentInitParams;
 import com.quanturium.androcloud.MyApplication;
 import com.quanturium.androcloud.R;
-import com.quanturium.androcloud.adapters.FilesAdapter2;
+import com.quanturium.androcloud.adapters.FilesAdapter;
 import com.quanturium.androcloud.databases.FilesDatabase;
 import com.quanturium.androcloud.listeners.FilesTaskListener;
 import com.quanturium.androcloud.requests.FilesTask;
@@ -41,7 +41,7 @@ import com.quanturium.androcloud.tools.Prefs;
 
 public abstract class FilesAbstractFragment extends AbstractListFragment implements FilesTaskListener, OnItemClickListener, MultiChoiceModeListener, OnQueryTextListener, OnNavigationListener, LoaderCallbacks<Cursor>
 {
-	private FilesAdapter2		adapter					= null;
+	private FilesAdapter		adapter					= null;
 	private SpinnerAdapter		dropdownAdapter;
 	protected FilesDatabase		database;
 
@@ -285,13 +285,13 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 
 			if (page == 0)
 			{
-				((FilesAdapter2) getListAdapter()).setLastItemStatus(FilesAdapter2.Status.DISABLED);
-				((FilesAdapter2) getListAdapter()).notifyDataSetChanged();
+				((FilesAdapter) getListAdapter()).setLastItemStatus(FilesAdapter.Status.DISABLED);
+				((FilesAdapter) getListAdapter()).notifyDataSetChanged();
 			}
 			else
 			{
-				((FilesAdapter2) getListAdapter()).setLastItemStatus(FilesAdapter2.Status.LOADING);
-				((FilesAdapter2) getListAdapter()).notifyDataSetChanged();
+				((FilesAdapter) getListAdapter()).setLastItemStatus(FilesAdapter.Status.LOADING);
+				((FilesAdapter) getListAdapter()).notifyDataSetChanged();
 			}
 
 			FilesTask filesTask = new FilesTask(this);
@@ -308,7 +308,7 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
 	{
-		if (getListAdapter().getItemViewType(arg2) == FilesAdapter2.TYPE_LOAD_MORE)
+		if (getListAdapter().getItemViewType(arg2) == FilesAdapter.TYPE_LOAD_MORE)
 		{
 			int page = (int) (database.getCount() / Integer.valueOf(Prefs.getPreferences(getActivity()).getString(Prefs.FILES_PER_REQUEST, "20"))) + 1; // TODO fixe le pb de (70/20)+1
 			loadFiles(page);
@@ -330,7 +330,7 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 
 		if (answer.resultCode == FilesTaskAnswer.RESULT_OK)
 		{
-			((FilesAdapter2) getListAdapter()).setLastItemStatus(FilesAdapter2.Status.NORMAL);
+			((FilesAdapter) getListAdapter()).setLastItemStatus(FilesAdapter.Status.NORMAL);
 			// ((FilesAdapter2) getListAdapter()).changeCursor(database.fetchFilesFiltered(((FilesAdapter2) getListAdapter()).getTypeFilter(), null));
 			getLoaderManager().restartLoader(0, null, this);
 		}
@@ -445,7 +445,7 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 	{
 		if (adapter == null)
 		{
-			adapter = new FilesAdapter2(getActivity(), null, 0);
+			adapter = new FilesAdapter(getActivity(), null, 0);
 			setListAdapter(adapter);
 		}
 		else

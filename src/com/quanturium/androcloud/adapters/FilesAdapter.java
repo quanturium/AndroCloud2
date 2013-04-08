@@ -27,7 +27,7 @@ import com.quanturium.androcloud.databases.FilesDatabase;
 import com.quanturium.androcloud.holders.FileItemViewHolder;
 import com.quanturium.androcloud.tools.Tools;
 
-public class FilesAdapter2 extends CursorAdapter
+public class FilesAdapter extends CursorAdapter
 {
 	public enum Status
 	{
@@ -43,7 +43,7 @@ public class FilesAdapter2 extends CursorAdapter
 
 	private final static String		TAG				= "FilesAdapter";
 
-	public FilesAdapter2(Context context, Cursor c, int flags)
+	public FilesAdapter(Context context, Cursor c, int flags)
 	{
 		super(context, c, flags);
 		this.inflater = LayoutInflater.from(context);
@@ -93,7 +93,7 @@ public class FilesAdapter2 extends CursorAdapter
 		return false;
 	}
 
-	public void setLastItemStatus(FilesAdapter2.Status status)
+	public void setLastItemStatus(FilesAdapter.Status status)
 	{
 		this.lastItemStatus = status;
 	}
