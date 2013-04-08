@@ -30,7 +30,6 @@ public class MyApplication extends Application
 	private void setupAnalytics()
 	{
 		this.googleAnalytics = GoogleAnalytics.getInstance(this);
-		this.googleAnalytics.setDebug(true);
 		this.tracker = this.googleAnalytics.getTracker(Constants.ANALYTICS_TRACKING_ID);
 	}
 	
