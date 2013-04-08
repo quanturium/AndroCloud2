@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.quanturium.androcloud2.adapters.TransfertsAdapter;
+import com.quanturium.androcloud.adapters.TransfertsAdapter;
 
 /**
  * A {@link android.view.View.OnTouchListener} that makes the list items in a {@link ListView}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.quanturium.androcloud2"
+    package="com.quanturium.androcloud"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.quanturium.androcloud2.activities.MainActivity"
+            android:name="com.quanturium.androcloud.activities.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop" >
             <intent-filter>
@@ -29,25 +29,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.quanturium.androcloud2.activities.SplashActivity"
+            android:name="com.quanturium.androcloud.activities.SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.quanturium.androcloud2.activities.LoginActivity"
+            android:name="com.quanturium.androcloud.activities.LoginActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.quanturium.androcloud2.activities.RegisterActivity"
+            android:name="com.quanturium.androcloud.activities.RegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.quanturium.androcloud2.activities.ShareActivity"
+            android:name="com.quanturium.androcloud.activities.ShareActivity"
             android:noHistory="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
             <intent-filter>
@@ -74,8 +74,8 @@
             android:name=".requests.TransfertEventsReceiver"
             android:exported="false" >
             <intent-filter>
-                <action android:name="com.quanturium.androcloud2.intent.action_notification_upload_action" />
-                <action android:name="com.quanturium.androcloud2.intent.action_notification_download_action" />
+                <action android:name="com.quanturium.androcloud.intent.action_notification_upload_action" />
+                <action android:name="com.quanturium.androcloud.intent.action_notification_download_action" />
             </intent-filter>
         </receiver>
     </application>
