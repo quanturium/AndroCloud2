@@ -101,8 +101,6 @@ public class FilesAdapter extends CursorAdapter
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		Log.i(TAG, "get view with position " + position);
-		
 		if (getItemViewType(position) == TYPE_LOAD_MORE)
 		{
 			View v;
