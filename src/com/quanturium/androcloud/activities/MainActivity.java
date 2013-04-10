@@ -12,6 +12,7 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -73,6 +74,8 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 	{
 		super.onCreate(savedInstanceState);
 
+		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+		
 		Thread.setDefaultUncaughtExceptionHandler(new MyExceptionHandler());
 
 		if (!Prefs.getPreferences(this).getBoolean(Prefs.LOGGED_IN, false)) // Not logged in
