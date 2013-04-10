@@ -68,7 +68,6 @@ public class MainService extends Service implements TransfertTaskListener
 				}
 				else if (action.equals(Constants.INTENT_ACTION_UPLOAD))
 				{
-					// TODO handle intent here
 					String fileString = intent.getDataString();
 
 					if (fileString != null)
