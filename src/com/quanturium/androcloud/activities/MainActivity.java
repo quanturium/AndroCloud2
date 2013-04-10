@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.crittercism.app.Crittercism;
 import com.quanturium.androcloud.Constants;
 import com.quanturium.androcloud.MyApplication;
-import com.quanturium.androcloud.MyExceptionHandler;
 import com.quanturium.androcloud.R;
 import com.quanturium.androcloud.adapters.AddFileAdapter;
 import com.quanturium.androcloud.adapters.MenuAdapter;
@@ -99,9 +98,6 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 		// Set default preferences
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		
-		
-		Thread.setDefaultUncaughtExceptionHandler(new MyExceptionHandler());
-
 		if (!Prefs.getPreferences(this).getBoolean(Prefs.LOGGED_IN, false)) // Not logged in
 		{
 			goToSplashActivity(false);

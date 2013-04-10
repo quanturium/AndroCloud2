@@ -13,14 +13,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.quanturium.androcloud.Constants;
-import com.quanturium.androcloud.MyExceptionHandler;
 import com.quanturium.androcloud.listeners.TransfertTaskListener;
+import com.quanturium.androcloud.requests.AbstractTaskQuery;
+import com.quanturium.androcloud.requests.AbstractTransfertTask;
 import com.quanturium.androcloud.requests.DownloadTransfertTask;
 import com.quanturium.androcloud.requests.DownloadTransfertTaskQuery;
-import com.quanturium.androcloud.requests.AbstractTaskQuery;
 import com.quanturium.androcloud.requests.TransfertNotification;
 import com.quanturium.androcloud.requests.TransfertStorage;
-import com.quanturium.androcloud.requests.AbstractTransfertTask;
 import com.quanturium.androcloud.requests.UploadTransfertTask;
 import com.quanturium.androcloud.requests.UploadTransfertTaskQuery;
 import com.quanturium.androcloud.tools.Prefs;
@@ -42,7 +41,6 @@ public class MainService extends Service implements TransfertTaskListener
 	{
 		Log.i(TAG, "Service created");
 		super.onCreate();
-		Thread.setDefaultUncaughtExceptionHandler(new MyExceptionHandler());
 	}
 
 	@Override
