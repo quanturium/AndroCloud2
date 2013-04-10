@@ -82,6 +82,10 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 		catch (JSONException je){}
 
 		Crittercism.init(getApplicationContext(), "5164b0b25f72163a5d000002", crittercismConfig);
+		
+		String crittercismUsername = Prefs.getPreferences(getApplicationContext()).getString(Prefs.EMAIL, null);
+		if(crittercismUsername != null)
+			Crittercism.setUsername(crittercismUsername);
 	}
 
 	
