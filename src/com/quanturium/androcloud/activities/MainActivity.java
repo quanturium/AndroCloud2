@@ -1,5 +1,8 @@
 package com.quanturium.androcloud.activities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -17,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.crittercism.app.Crittercism;
 import com.quanturium.androcloud.Constants;
 import com.quanturium.androcloud.MyApplication;
 import com.quanturium.androcloud.MyExceptionHandler;
@@ -69,12 +73,32 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 
 	public boolean				changesOccuredOnFiles	= false;
 
+	private void setupCrittercism()
+	{
+		JSONObject crittercismConfig = new JSONObject();
+		try
+		{
+		    crittercismConfig.put("shouldCollectLogcat", true); // send logcat data for devices with API Level 16 and higher
+		}
+		catch (JSONException je){}
+
+		Crittercism.init(getApplicationContext(), "5164b0b25f72163a5d000002", crittercismConfig);
+	}
+
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 
+		/**
+		 * Crittercism
+		 */
+		setupCrittercism();		
+		
+		// Set default preferences
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+		
 		
 		Thread.setDefaultUncaughtExceptionHandler(new MyExceptionHandler());
 
@@ -88,7 +112,7 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 
 		this.initialize(savedInstanceState);
 	}
-
+	
 	@Override
 	protected void onResume()
 	{
