@@ -1,5 +1,9 @@
 <root>
-    <version code="1" name="1" date="2013-03-19">
+    <version code="3" name="2.01" date="2013-04-09">
+        <item type="new">Added crittercism</item>
+        <item type="fixed">Fixed bugs</item>
+    </version>
+    <version code="2" name="2.0" date="2013-04-08">
         <item type="new">First version</item>
     </version>
 </root>
