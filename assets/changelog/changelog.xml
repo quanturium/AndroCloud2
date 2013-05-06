@@ -1,9 +1,13 @@
 <root>
+    <version code="2" name="2.0" date="2013-04-08">
+        <item type="new">First version</item>
+    </version>
     <version code="3" name="2.01" date="2013-04-09">
         <item type="new">Added crittercism</item>
         <item type="fixed">Fixed bugs</item>
     </version>
-    <version code="2" name="2.0" date="2013-04-08">
-        <item type="new">First version</item>
+    <version code="4" name="2.02" date="2013-05-05">        
+        <item type="fixed">Error handling while registering</item>
+        <item type="fixed">Added missing TOS</item>
     </version>
 </root>
