@@ -41,7 +41,9 @@ public class RegisterActivity extends Activity implements OnClickListener
 		emailText = (EditText) findViewById(R.id.registerEmail);
 		passwordText = (EditText) findViewById(R.id.registerPassword);
 		registerButton = (Button) findViewById(R.id.registerBouton);
-		registerButton.setOnClickListener(this);
+		tosCheckbox = (CheckBox) findViewById(R.id.registerTOS);
+		tosCheckbox.setOnClickListener(this);
+		registerButton.setOnClickListener(this);		
 	}
 	
 	@Override
@@ -72,13 +74,14 @@ public class RegisterActivity extends Activity implements OnClickListener
 				startActivity(intent);
 				return true;
 		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 	
 	private void registerRunningDialog()
 	{
 		ProgressDialog dialog = new ProgressDialog(this);
-		dialog.setMessage("Authentication");
+		dialog.setMessage("Registration");
 		dialog.setCancelable(false);
 
 		registerRunningDialog = dialog;
@@ -88,73 +91,100 @@ public class RegisterActivity extends Activity implements OnClickListener
 	@Override
 	public void onClick(View v)
 	{
-		final String email = emailText.getText().toString().trim();
-		final String password = passwordText.getText().toString().trim();
-		if (email.equals("") || password.equals(""))
+		switch(v.getId())
 		{
-			Toast.makeText(this, "All the fields need to be filled", Toast.LENGTH_SHORT).show();
-		}
-		else if (!tosCheckbox.isChecked())
-		{
-			Toast.makeText(this, "You must accept the term of service", Toast.LENGTH_SHORT).show();
-		}
-		else
-		{
-			registerRunningDialog();
+		case R.id.registerTOS :
 			
-			new Thread(new Runnable()
+			if(((CheckBox)v).isChecked())			
+				startActivity(new Intent(this, TosActivity.class));
+			
+			break;
+			
+		case R.id.registerBouton :
+		
+			final String email = emailText.getText().toString().trim();
+			final String password = passwordText.getText().toString().trim();
+			if (email.equals("") || password.equals(""))
 			{
-				@Override
-				public void run()
+				Toast.makeText(this, "All the fields need to be filled", Toast.LENGTH_SHORT).show();
+			}
+			else if (!tosCheckbox.isChecked())
+			{
+				Toast.makeText(this, "You must accept the term of service", Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				registerRunningDialog();
+				
+				new Thread(new Runnable()
 				{
-					CloudApp api = new CloudAppImpl();
-
-					try
+					@Override
+					public void run()
 					{
-						final CloudAppAccount account = api.createAccount(email, password, true);
-
-						if (account != null && account.getEmail().equals(email))
+						CloudApp api = new CloudAppImpl();
+	
+						try
+						{
+							final CloudAppAccount account = api.createAccount(email, password, true);
+	
+							if (account != null && account.getEmail().equals(email))
+							{
+								handler.post(new Runnable()
+								{
+	
+									@Override
+									public void run()
+									{
+										registerRunningDialog.cancel();
+	
+										int hash = (email + password).hashCode();
+	
+										Prefs.getPreferences(RegisterActivity.this).edit().putString(Prefs.USER_INFOS, account.getJson().toString()).commit();
+										Prefs.getPreferences(RegisterActivity.this).edit().putString(Prefs.EMAIL, email).commit();
+										Prefs.getPreferences(RegisterActivity.this).edit().putString(Prefs.PASSWORD, password).commit();
+										Prefs.getPreferences(RegisterActivity.this).edit().putInt(Prefs.HASH, hash).commit();
+										Prefs.getPreferences(RegisterActivity.this).edit().putBoolean(Prefs.LOGGED_IN, true).commit();
+	
+										Intent returnIntent = new Intent();
+										setResult(RESULT_OK, returnIntent);
+										finish();
+									}
+								});
+							}
+	
+						} catch (final CloudAppException e)
 						{
 							handler.post(new Runnable()
 							{
-
 								@Override
 								public void run()
 								{
 									registerRunningDialog.cancel();
-
-									int hash = (email + password).hashCode();
-
-									Prefs.getPreferences(RegisterActivity.this).edit().putString(Prefs.USER_INFOS, account.getJson().toString()).commit();
-									Prefs.getPreferences(RegisterActivity.this).edit().putString(Prefs.EMAIL, email).commit();
-									Prefs.getPreferences(RegisterActivity.this).edit().putString(Prefs.PASSWORD, password).commit();
-									Prefs.getPreferences(RegisterActivity.this).edit().putInt(Prefs.HASH, hash).commit();
-									Prefs.getPreferences(RegisterActivity.this).edit().putBoolean(Prefs.LOGGED_IN, true).commit();
-
-									Intent returnIntent = new Intent();
-									setResult(RESULT_OK, returnIntent);
-									finish();
+	
+									switch(e.getCode())
+									{
+										case 422:
+											Toast.makeText(RegisterActivity.this, "Registration failed. Your email address must be valid and your password must be at least 4 characters long", Toast.LENGTH_LONG).show();
+											break;
+											
+										case 406 :
+											Toast.makeText(RegisterActivity.this, "Registration failed. An account with " + email + " already exists", Toast.LENGTH_LONG).show();
+											break;
+										
+										default :
+											Toast.makeText(RegisterActivity.this, "Registration failed. Check your connection", Toast.LENGTH_SHORT).show();
+											break;
+									}																
 								}
 							});
+	
+							e.printStackTrace();
 						}
-
-					} catch (CloudAppException e)
-					{
-						handler.post(new Runnable()
-						{
-							@Override
-							public void run()
-							{
-								registerRunningDialog.cancel();
-
-								Toast.makeText(RegisterActivity.this, "Registration failed. Check your connection", Toast.LENGTH_SHORT).show();
-							}
-						});
-
-						e.printStackTrace();
 					}
-				}
-			}).start();
+				}).start();
+			}
+			
+			break;
 		}
 	}
 }
