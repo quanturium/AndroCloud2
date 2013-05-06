@@ -53,6 +53,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.quanturium.androcloud.activities.TosActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>        
+        <activity
             android:name="com.quanturium.androcloud.activities.ShareActivity"
             android:noHistory="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
