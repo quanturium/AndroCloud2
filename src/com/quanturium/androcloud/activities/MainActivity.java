@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.crittercism.app.Crittercism;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import com.quanturium.androcloud.Constants;
 import com.quanturium.androcloud.MyApplication;
 import com.quanturium.androcloud.R;
@@ -39,8 +41,6 @@ import com.quanturium.androcloud.fragments.TransfertFragment;
 import com.quanturium.androcloud.fragments.UserFragment;
 import com.quanturium.androcloud.listeners.FragmentListener;
 import com.quanturium.androcloud.tools.Prefs;
-import com.slidingmenu.lib.SlidingMenu;
-import com.slidingmenu.lib.app.SlidingActivity;
 
 public class MainActivity extends SlidingActivity implements FragmentListener, OnBackStackChangedListener
 {
