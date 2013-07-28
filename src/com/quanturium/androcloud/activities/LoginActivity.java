@@ -17,7 +17,7 @@ import com.cloudapp.api.CloudApp;
 import com.cloudapp.api.CloudAppException;
 import com.cloudapp.api.model.CloudAppAccount;
 import com.cloudapp.impl.CloudAppImpl;
-import com.crittercism.app.Crittercism;
+import com.crashlytics.android.Crashlytics;
 import com.quanturium.androcloud.MyApplication;
 import com.quanturium.androcloud.R;
 import com.quanturium.androcloud.tools.Prefs;
@@ -136,9 +136,9 @@ public class LoginActivity extends Activity implements OnClickListener
 									((MyApplication)getApplication()).getTracker().setStartSession(true);
 									
 									/**
-									 * Crittercism
+									 * Crashlytics
 									 */
-									Crittercism.setUsername(email);
+									Crashlytics.setUserEmail(email);
 									
 									finish();
 								}

@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="libs/slf4j-android-1.6.1-RC1.jar"/>
 	<classpathentry kind="lib" path="libs/common-lang3.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="lib" path="libs/crashlytics.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

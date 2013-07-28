@@ -90,6 +90,8 @@
                 <action android:name="com.quanturium.androcloud.intent.action_notification_download_action" />
             </intent-filter>
         </receiver>
+        
+        <meta-data android:name="com.crashlytics.ApiKey" android:value="d989ba72e4d32a7465eb5c52f54e54c9388c2be4"/>
     </application>
 
 </manifest>
