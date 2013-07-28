@@ -11,7 +11,6 @@ import android.widget.ListView;
 import com.quanturium.androcloud.FragmentInitParams;
 import com.quanturium.androcloud.R;
 import com.quanturium.androcloud.adapters.MenuAdapter;
-import com.quanturium.androcloud.listeners.FragmentListener;
 import com.quanturium.androcloud.tools.Prefs;
 
 public class MenuFragment extends AbstractListFragment

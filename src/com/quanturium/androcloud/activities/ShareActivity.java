@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import com.quanturium.androcloud.MyApplication;
 import com.quanturium.androcloud.tools.Prefs;
-import com.quanturium.androcloud.tools.Tools;
 
 public class ShareActivity extends Activity
 {

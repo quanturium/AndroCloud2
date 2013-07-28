@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.quanturium.androcloud.FragmentInitParams;
-import com.quanturium.androcloud.R;
 import com.quanturium.androcloud.activities.MainActivity;
 import com.quanturium.androcloud.listeners.FragmentListener;
 

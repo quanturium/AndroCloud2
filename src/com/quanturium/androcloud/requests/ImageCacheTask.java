@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
-import com.cloudapp.api.CloudAppException;
 import com.quanturium.androcloud.Constants;
 import com.quanturium.androcloud.listeners.ImageCacheTaskListener;
 import com.quanturium.androcloud.tools.Cache;

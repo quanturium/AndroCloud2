@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,8 @@ import com.quanturium.androcloud.R;
 import com.quanturium.androcloud.holders.TransfertItemViewHolder;
 import com.quanturium.androcloud.models.TransfertTaskModel;
 import com.quanturium.androcloud.models.TransfertTaskModel.Type;
-import com.quanturium.androcloud.requests.TransfertStorage;
 import com.quanturium.androcloud.requests.AbstractTransfertTask;
+import com.quanturium.androcloud.requests.TransfertStorage;
 
 public class TransfertsAdapter extends BaseAdapter
 {

@@ -1,6 +1,5 @@
 package com.quanturium.androcloud.adapters;
 
-import java.util.List;
 import java.util.Map;
 
 import android.content.Context;

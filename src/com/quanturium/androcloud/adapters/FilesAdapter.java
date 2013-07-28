@@ -1,15 +1,10 @@
 package com.quanturium.androcloud.adapters;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

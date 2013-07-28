@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.quanturium.androcloud.MyApplication;
 import com.quanturium.androcloud.R;
 import com.quanturium.androcloud.activities.MainActivity;
-import com.quanturium.androcloud.databases.FilesDatabase;
 import com.quanturium.androcloud.listeners.FragmentListener;
 import com.quanturium.androcloud.tools.Prefs;
 
