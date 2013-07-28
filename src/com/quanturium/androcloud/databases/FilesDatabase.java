@@ -103,7 +103,7 @@ public class FilesDatabase extends SQLiteOpenHelper
 
 			SQLiteDatabase db = this.getWritableDatabase();
 			long id = db.insert(TABLE_NAME, null, values);
-			db.close();
+			
 			return id;
 
 		} catch (CloudAppException e)
@@ -128,7 +128,6 @@ public class FilesDatabase extends SQLiteOpenHelper
 
 			SQLiteDatabase db = this.getWritableDatabase();
 			db.update(TABLE_NAME, values, COL_ID + "=?", new String[] { String.valueOf(id) });
-			db.close();
 
 			return id;
 
@@ -146,7 +145,6 @@ public class FilesDatabase extends SQLiteOpenHelper
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(TABLE_NAME, null, null);
-		db.close();
 	}
 
 	public int getFileId(String url)

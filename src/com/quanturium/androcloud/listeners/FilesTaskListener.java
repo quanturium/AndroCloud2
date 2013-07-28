@@ -1,9 +1,9 @@
 package com.quanturium.androcloud.listeners;
 
-import com.quanturium.androcloud.requests.FilesTaskAnswer;
+import com.quanturium.androcloud.requests.FilesRequestAnswer;
 
 public interface FilesTaskListener
 {
-	public void onTaskFinished(FilesTaskAnswer answer);
+	public void onTaskFinished(FilesRequestAnswer answer);
 	public void onTaskCanceled();
 }

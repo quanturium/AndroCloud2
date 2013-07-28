@@ -2,11 +2,12 @@ package com.quanturium.androcloud.fragments;
 
 import android.app.ActionBar.OnNavigationListener;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -29,18 +30,17 @@ import com.cloudapp.api.model.CloudAppItem.Type;
 import com.commonsware.cwac.loaderex.SQLiteCursorLoader;
 import com.quanturium.androcloud.Constants;
 import com.quanturium.androcloud.FragmentInitParams;
-import com.quanturium.androcloud.MyApplication;
 import com.quanturium.androcloud.R;
 import com.quanturium.androcloud.adapters.FilesAdapter;
 import com.quanturium.androcloud.databases.FilesDatabase;
 import com.quanturium.androcloud.listeners.FilesTaskListener;
-import com.quanturium.androcloud.requests.FilesTask;
-import com.quanturium.androcloud.requests.FilesTaskAnswer;
-import com.quanturium.androcloud.requests.FilesTaskQuery;
+import com.quanturium.androcloud.requests.FilesRequestAnswer;
+import com.quanturium.androcloud.requests.FilesRequestQuery;
+import com.quanturium.androcloud.services.FilesService;
 import com.quanturium.androcloud.tools.Logger;
 import com.quanturium.androcloud.tools.Prefs;
 
-public abstract class FilesAbstractFragment extends AbstractListFragment implements FilesTaskListener, OnItemClickListener, MultiChoiceModeListener, OnQueryTextListener, OnNavigationListener, LoaderCallbacks<Cursor>
+public abstract class FilesAbstractFragment extends AbstractListFragment implements OnItemClickListener, MultiChoiceModeListener, OnQueryTextListener, OnNavigationListener, LoaderCallbacks<Cursor>
 {
 	private FilesAdapter		adapter					= null;
 	private SpinnerAdapter		dropdownAdapter;
@@ -54,6 +54,8 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 	protected CloudAppItem.Type	filterType				= null;
 
 	private int					stateDropdownPosition	= -1;
+	
+	protected ResultReceiver mReceiver;
 
 	protected abstract boolean willDisplayTrash();
 
@@ -68,6 +70,17 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 	@Override
 	protected abstract FragmentInitParams init();
 
+	public FilesAbstractFragment() {
+		mReceiver = new ResultReceiver(new Handler()) {
+
+            @Override
+            protected void onReceiveResult(int resultCode, Bundle resultData) {                
+                	onTaskFinished((FilesRequestAnswer)resultData.get("result"));               
+            }
+            
+        };
+	}
+	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
@@ -102,19 +115,18 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 
 		if (savedInstanceState != null) // when there is a rotation or configuration change
 		{
-			FilesTask runningTask = ((MyApplication) getActivity().getApplication()).getFilesTask(); // we get back the task when there is a rotation
-
-			if (runningTask != null)
-			{
-				runningTask.setCallback(this);
-
-				if (runningTask.getStatus() != AsyncTask.Status.FINISHED) // either PENDING or RUNNING
-				{
-					currentlyLoading = true;
-					showProgressIcon(true);
-				}
-			}
-
+//			FilesTask runningTask = ((MyApplication) getActivity().getApplication()).getFilesTask(); // we get back the task when there is a rotation
+//
+//			if (runningTask != null)
+//			{
+//				runningTask.setCallback(this);
+//
+//				if (runningTask.getStatus() != AsyncTask.Status.FINISHED) // either PENDING or RUNNING
+//				{
+//					currentlyLoading = true;
+//					showProgressIcon(true);
+//				}
+//			}
 		}
 	}
 
@@ -272,10 +284,7 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 	}
 
 	/**
-	 * @param reload
-	 *            : When reload=true, all items in the listview are removed ; when reload=false, only the new items will be added
-	 * @param page
-	 *            : if 0, items will be added on top, else on the bottom
+	 * @param page : if 0, items will be added on top, else on the bottom
 	 */
 	private void loadFiles(final int page)
 	{
@@ -295,10 +304,17 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 				((FilesAdapter) getListAdapter()).notifyDataSetChanged();
 			}
 
-			FilesTask filesTask = new FilesTask(this);
-			FilesTaskQuery query = new FilesTaskQuery(Prefs.getPreferences(getActivity()).getString(Prefs.EMAIL, ""), Prefs.getPreferences(getActivity()).getString(Prefs.PASSWORD, ""), database, page, Integer.valueOf(Prefs.getPreferences(getActivity()).getString(Prefs.FILES_PER_REQUEST, "20")), willDisplayTrash());
-			filesTask.execute(query);
-			((MyApplication) getActivity().getApplication()).setFilesTask(filesTask);
+//			FilesTask filesTask = new FilesTask(this);
+			FilesRequestQuery query = new FilesRequestQuery(Prefs.getPreferences(getActivity()).getString(Prefs.EMAIL, ""), Prefs.getPreferences(getActivity()).getString(Prefs.PASSWORD, ""), page, Integer.valueOf(Prefs.getPreferences(getActivity()).getString(Prefs.FILES_PER_REQUEST, "20")), willDisplayTrash());
+//			filesTask.execute(query);
+			
+			Intent intent = new Intent(getActivity(), FilesService.class);
+			Bundle params = new Bundle();
+			params.putSerializable("query", query);
+			params.putParcelable("receiver", mReceiver);
+			intent.putExtras(params);
+			
+			getActivity().startService(intent);
 		}
 		else
 		{
@@ -324,12 +340,13 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 		}
 	}
 
-	@Override
-	public void onTaskFinished(FilesTaskAnswer answer)
+	public void onTaskFinished(FilesRequestAnswer answer)
 	{
 		Logger.i(TAG, "onTaskFinished");
 
-		if (answer.resultCode == FilesTaskAnswer.RESULT_OK)
+		if(isAdded()){
+		
+		if (answer.resultCode == FilesRequestAnswer.RESULT_OK)
 		{
 			((FilesAdapter) getListAdapter()).setLastItemStatus(FilesAdapter.Status.NORMAL);
 			// ((FilesAdapter2) getListAdapter()).changeCursor(database.fetchFilesFiltered(((FilesAdapter2) getListAdapter()).getTypeFilter(), null));
@@ -342,16 +359,8 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 
 		currentlyLoading = false;
 		showProgressIcon(false);
-		((MyApplication) getActivity().getApplication()).setFilesTask(null);
-	}
-
-	@Override
-	public void onTaskCanceled()
-	{
-		currentlyLoading = false;
-		showProgressIcon(false);
-		Logger.e(TAG, "Task canceled");
-		((MyApplication) getActivity().getApplication()).setFilesTask(null);
+		
+		}
 	}
 
 	@Override

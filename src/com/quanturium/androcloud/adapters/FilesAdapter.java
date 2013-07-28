@@ -159,7 +159,6 @@ public class FilesAdapter extends CursorAdapter
 		{
 			try
 			{
-//				int date = cursor.getInt(cursor.getColumnIndex(FilesDatabase.COL_DATE));
 				String json = cursor.getString(cursor.getColumnIndex(FilesDatabase.COL_DATA));
 				CloudAppItem item = new CloudAppItemImpl(new JSONObject(json));
 
@@ -203,11 +202,9 @@ public class FilesAdapter extends CursorAdapter
 
 			} catch (CloudAppException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (JSONException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

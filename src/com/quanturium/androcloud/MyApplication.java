@@ -9,13 +9,11 @@ import android.content.Intent;
 
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.Tracker;
-import com.quanturium.androcloud.requests.FilesTask;
 import com.quanturium.androcloud.requests.ImageCacheTask;
 import com.quanturium.androcloud.services.MainService;
 
 public class MyApplication extends Application
 {
-	private FilesTask						filesTask;
 	private Map<Integer, ImageCacheTask>	imageCacheTaskArray	= new HashMap<Integer, ImageCacheTask>();
 	private GoogleAnalytics					googleAnalytics;
 	private Tracker							tracker;
@@ -49,16 +47,6 @@ public class MyApplication extends Application
 			imageCacheTaskArray.remove(id);
 		else
 			imageCacheTaskArray.put(id, imageCacheTask);
-	}
-
-	public FilesTask getFilesTask()
-	{
-		return filesTask;
-	}
-
-	public void setFilesTask(FilesTask filesTask)
-	{
-		this.filesTask = filesTask;
 	}
 
 	public void sendToMainService(Intent intent)

@@ -71,11 +71,13 @@ public class MainActivity extends SlidingActivity implements FragmentListener, O
 
 	private void setupCrashlytics()
 	{
-		Crashlytics.start(this);
-		
-		String crashlyticsEmail = Prefs.getPreferences(getApplicationContext()).getString(Prefs.EMAIL, null);
-		if(crashlyticsEmail != null)
-			Crashlytics.setUserEmail(crashlyticsEmail);
+		if(!Constants.DEBUG){
+			Crashlytics.start(this);
+			
+			String crashlyticsEmail = Prefs.getPreferences(getApplicationContext()).getString(Prefs.EMAIL, null);
+			if(crashlyticsEmail != null)
+				Crashlytics.setUserEmail(crashlyticsEmail);
+		}
 	}
 
 	

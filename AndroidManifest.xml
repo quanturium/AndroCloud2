@@ -12,11 +12,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!-- Start of Crittercism.com Code -->
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <!-- End of Crittercism.com Code -->
-
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -80,6 +75,10 @@
 
         <service
             android:name=".services.MainService"
+            android:exported="false" />
+        
+        <service
+            android:name=".services.FilesService"
             android:exported="false" />
 
         <receiver
