@@ -2,7 +2,7 @@ package com.quanturium.androcloud;
 
 public class Constants
 {
-	public final static boolean	DEBUG										= true;
+	public final static boolean	DEBUG										= false;
 	
 	public final static String	ANALYTICS_TRACKING_ID						= "UA-28301626-3";
 

@@ -10,4 +10,8 @@
         <item type="fixed">Error handling while registering</item>
         <item type="fixed">Added missing TOS</item>
     </version>
+    <version code="5" name="2.03" date="2013-07-28">        
+        <item type="fixed">Fixed bugs</item>
+        <item type="new">Added Crashlytics to debug crashes</item>        
+    </version>
 </root>
