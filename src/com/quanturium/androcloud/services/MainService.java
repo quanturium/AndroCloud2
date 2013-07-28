@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.IBinder;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.quanturium.androcloud.Constants;
@@ -22,6 +21,7 @@ import com.quanturium.androcloud.requests.TransfertNotification;
 import com.quanturium.androcloud.requests.TransfertStorage;
 import com.quanturium.androcloud.requests.UploadTransfertTask;
 import com.quanturium.androcloud.requests.UploadTransfertTaskQuery;
+import com.quanturium.androcloud.tools.Logger;
 import com.quanturium.androcloud.tools.Prefs;
 import com.quanturium.androcloud.tools.Tools;
 
@@ -39,7 +39,7 @@ public class MainService extends Service implements TransfertTaskListener
 	@Override
 	public void onCreate()
 	{
-		Log.i(TAG, "Service created");
+		Logger.v(TAG, "Service created");
 		super.onCreate();
 	}
 
@@ -74,6 +74,8 @@ public class MainService extends Service implements TransfertTaskListener
 
 						if (fileUri != null)
 						{
+							Logger.i(TAG, "Uploading file : " + fileUri.toString());
+							
 							File file = Tools.uriToFile(this, fileUri);
 							actionStartUpload(file);
 						}
@@ -85,14 +87,14 @@ public class MainService extends Service implements TransfertTaskListener
 
 					if (fileUri == null)
 					{
-						Log.e(TAG, "Sharing file's uri is null");
+						Logger.e(TAG, "Sharing file's uri is null");
 						Toast.makeText(this, "Invalid data received", Toast.LENGTH_SHORT).show();
 					}
 					else
 					{
 						File file = Tools.uriToFile(this, fileUri);
 
-						Log.i(TAG, "Sharing file's path : " + file.toString());
+						Logger.i(TAG, "Sharing file's path : " + file.toString());
 
 						actionStartUpload(file);
 					}
@@ -103,7 +105,7 @@ public class MainService extends Service implements TransfertTaskListener
 
 					if (fileUris == null || fileUris.size() == 0)
 					{
-						Log.e(TAG, "Sharing file's uri is null");
+						Logger.e(TAG, "Sharing file's uri is null");
 						Toast.makeText(this, "Invalid data received", Toast.LENGTH_SHORT).show();
 					}
 					else
@@ -114,7 +116,7 @@ public class MainService extends Service implements TransfertTaskListener
 						{
 							file = Tools.uriToFile(this, fileUri);
 
-							Log.i(TAG, "Sharing file's path : " + file.toString());
+							Logger.i(TAG, "Sharing file's path : " + file.toString());
 
 							actionStartUpload(file);
 						}
@@ -129,7 +131,7 @@ public class MainService extends Service implements TransfertTaskListener
 	@Override
 	public void onDestroy()
 	{
-		Log.i(TAG, "Service destroyed");
+		Logger.i(TAG, "Service destroyed");
 		storage.kill();
 		super.onDestroy();
 	}
@@ -184,14 +186,14 @@ public class MainService extends Service implements TransfertTaskListener
 	@Override
 	public void onTaskStart(int id)
 	{
-		Log.i(TAG, "Task's callback : #" + id + " started");
+		Logger.i(TAG, "Task's callback : #" + id + " started");
 
 		if (storage.countNotifications() == 1)
 		{
 			Notification dummy = new Notification(0, null, System.currentTimeMillis());
 			dummy.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
 			startForeground(1337, dummy);
-			Log.i(TAG, "startForeground");
+			Logger.i(TAG, "startForeground");
 		}
 
 		storage.getNotification(id).start();
@@ -201,7 +203,7 @@ public class MainService extends Service implements TransfertTaskListener
 	@Override
 	public void onTaskProgress(int id, int percent)
 	{
-		Log.i(TAG, "Task's callback : #" + id + " progress = " + percent + "%");
+		Logger.i(TAG, "Task's callback : #" + id + " progress = " + percent + "%");
 
 		storage.getNotification(id).update(percent);
 	}
@@ -209,7 +211,7 @@ public class MainService extends Service implements TransfertTaskListener
 	@Override
 	public void onTaskFinish(int id, String result)
 	{
-		Log.i(TAG, "Task's callback : #" + id + " finished");
+		Logger.i(TAG, "Task's callback : #" + id + " finished");
 
 		storage.getNotification(id).finish(result);
 		stopForeground(true);
@@ -221,7 +223,7 @@ public class MainService extends Service implements TransfertTaskListener
 
 		if (count == 0)
 		{
-			Log.i(TAG, "stop foreground");
+			Logger.i(TAG, "stop foreground");
 			stopForeground(true);
 		}
 
@@ -231,7 +233,7 @@ public class MainService extends Service implements TransfertTaskListener
 	@Override
 	public void onCancel(int id)
 	{
-		Log.i(TAG, "Task's callback : #" + id + " canceled");
+		Logger.i(TAG, "Task's callback : #" + id + " canceled");
 
 		storage.getNotification(id).cancel();
 
@@ -242,7 +244,7 @@ public class MainService extends Service implements TransfertTaskListener
 
 		if (count == 0)
 		{
-			Log.i(TAG, "stop foreground");
+			Logger.i(TAG, "stop foreground");
 			stopForeground(true);
 		}
 

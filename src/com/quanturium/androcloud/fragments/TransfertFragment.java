@@ -2,7 +2,6 @@ package com.quanturium.androcloud.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +11,7 @@ import com.quanturium.androcloud.FragmentInitParams;
 import com.quanturium.androcloud.MyApplication;
 import com.quanturium.androcloud.R;
 import com.quanturium.androcloud.adapters.TransfertsAdapter;
+import com.quanturium.androcloud.tools.Logger;
 import com.quanturium.androcloud.tools.Prefs;
 
 public class TransfertFragment extends AbstractListFragment
@@ -102,7 +102,7 @@ public class TransfertFragment extends AbstractListFragment
 			{
 				if (isActive)
 				{
-					Log.i(TAG, "refresh");
+					Logger.i(TAG, "refresh");
 					refresh();
 					handler.postDelayed(this, REFRESH_INTERVAL * 1000);
 				}

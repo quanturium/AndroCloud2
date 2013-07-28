@@ -37,6 +37,7 @@ import com.quanturium.androcloud.listeners.FilesTaskListener;
 import com.quanturium.androcloud.requests.FilesTask;
 import com.quanturium.androcloud.requests.FilesTaskAnswer;
 import com.quanturium.androcloud.requests.FilesTaskQuery;
+import com.quanturium.androcloud.tools.Logger;
 import com.quanturium.androcloud.tools.Prefs;
 
 public abstract class FilesAbstractFragment extends AbstractListFragment implements FilesTaskListener, OnItemClickListener, MultiChoiceModeListener, OnQueryTextListener, OnNavigationListener, LoaderCallbacks<Cursor>
@@ -326,7 +327,7 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 	@Override
 	public void onTaskFinished(FilesTaskAnswer answer)
 	{
-		Log.i(TAG, "onTaskFinished");
+		Logger.i(TAG, "onTaskFinished");
 
 		if (answer.resultCode == FilesTaskAnswer.RESULT_OK)
 		{
@@ -349,7 +350,7 @@ public abstract class FilesAbstractFragment extends AbstractListFragment impleme
 	{
 		currentlyLoading = false;
 		showProgressIcon(false);
-		Log.e(TAG, "Task canceled");
+		Logger.e(TAG, "Task canceled");
 		((MyApplication) getActivity().getApplication()).setFilesTask(null);
 	}
 

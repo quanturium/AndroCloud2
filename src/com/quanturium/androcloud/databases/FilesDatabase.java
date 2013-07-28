@@ -7,10 +7,10 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
-import android.util.Log;
 
 import com.cloudapp.api.CloudAppException;
 import com.cloudapp.api.model.CloudAppItem;
+import com.quanturium.androcloud.tools.Logger;
 import com.quanturium.androcloud.tools.Prefs;
 
 public class FilesDatabase extends SQLiteOpenHelper
@@ -63,7 +63,7 @@ public class FilesDatabase extends SQLiteOpenHelper
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 	{
-		Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
+		Logger.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
 		onCreate(db);
@@ -142,7 +142,7 @@ public class FilesDatabase extends SQLiteOpenHelper
 
 	public void deleteFiles()
 	{
-		Log.w(TAG, "deleting all items in FilesDatabase");
+		Logger.w(TAG, "deleting all items in FilesDatabase");
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(TABLE_NAME, null, null);

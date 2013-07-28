@@ -5,8 +5,7 @@ import java.util.List;
 
 import com.quanturium.androcloud.models.TransfertTaskModel;
 import com.quanturium.androcloud.models.TransfertTaskModel.Type;
-
-import android.util.Log;
+import com.quanturium.androcloud.tools.Logger;
 
 public class TransfertStorage
 {
@@ -94,7 +93,7 @@ public class TransfertStorage
 		int id = this.tasks.indexOf(task);
 
 		task.setId(id);
-		Log.i("Task #" + id, "added to storage");
+		Logger.v("Task #" + id, "added to storage");
 		return id;
 	}
 

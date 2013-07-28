@@ -1,9 +1,9 @@
 package com.quanturium.androcloud.requests;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.quanturium.androcloud.listeners.TransfertTaskListener;
+import com.quanturium.androcloud.tools.Logger;
 
 public abstract class AbstractTransfertTask extends AsyncTask<AbstractTaskQuery, Integer, String>
 {
@@ -35,7 +35,7 @@ public abstract class AbstractTransfertTask extends AsyncTask<AbstractTaskQuery,
 	@Override
 	protected void onPreExecute()
 	{
-		Log.i("New task", "onPreExecute");
+		Logger.v("New task", "onPreExecute");
 		this.mCallback.onTaskStart(id);
 	}
 
@@ -45,7 +45,7 @@ public abstract class AbstractTransfertTask extends AsyncTask<AbstractTaskQuery,
 	@Override
 	protected void onProgressUpdate(Integer... values)
 	{
-		Log.i("Task #" + this.id, "onProgressUpdate : " + values[0]);
+		Logger.v("Task #" + this.id, "onProgressUpdate : " + values[0]);
 		this.progress = values[0];
 		this.mCallback.onTaskProgress(id, values[0]);
 	}
@@ -53,14 +53,14 @@ public abstract class AbstractTransfertTask extends AsyncTask<AbstractTaskQuery,
 	@Override
 	protected void onPostExecute(String result)
 	{
-		Log.i("Task #" + this.id, "onPostExecute");
+		Logger.v("Task #" + this.id, "onPostExecute");
 		this.mCallback.onTaskFinish(id, result);
 	}
 
 	@Override
 	protected void onCancelled()
 	{
-		Log.i("Task #" + this.id, "onCancelled");
+		Logger.v("Task #" + this.id, "onCancelled");
 		this.mCallback.onCancel(id);
 	}
 

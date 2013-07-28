@@ -1,13 +1,12 @@
 package com.quanturium.androcloud.requests;
 
-import android.util.Log;
-
 import com.cloudapp.api.CloudApp;
 import com.cloudapp.api.CloudAppException;
 import com.cloudapp.api.model.CloudAppItem;
 import com.cloudapp.api.model.CloudAppProgressListener;
 import com.cloudapp.impl.CloudAppImpl;
 import com.quanturium.androcloud.listeners.TransfertTaskListener;
+import com.quanturium.androcloud.tools.Logger;
 
 public class UploadTransfertTask extends AbstractTransfertTask implements CloudAppProgressListener
 {
@@ -29,7 +28,7 @@ public class UploadTransfertTask extends AbstractTransfertTask implements CloudA
 		try
 		{
 			CloudAppItem item = api.upload(query.file, this);
-			Log.i("Task #" + this.id, "url : " + item.getUrl());
+			Logger.v("Task #" + this.id, "url : " + item.getUrl());
 
 			return item.getJson().toString();
 		} catch (CloudAppException e)

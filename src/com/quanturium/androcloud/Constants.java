@@ -2,6 +2,8 @@ package com.quanturium.androcloud;
 
 public class Constants
 {
+	public final static boolean	DEBUG										= true;
+	
 	public final static String	ANALYTICS_TRACKING_ID						= "UA-28301626-3";
 
 	public final static String	INTENT_ACTION_TRANSFERTS_RUNNING			= "com.quanturium.androcloud.intent.action_transferts_running";
